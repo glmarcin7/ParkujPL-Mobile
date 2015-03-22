@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_start_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/et_start_point" />
+
+            <EditText
+                android:id="@+id/et_end_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/et_end_point" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ib_swap_start_and_end_points"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:src="@drawable/ic_action_swap_vert" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_ok" />
+
+
+</RelativeLayout>

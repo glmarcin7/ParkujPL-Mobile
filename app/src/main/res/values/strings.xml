@@ -1,9 +1,20 @@
 <resources>
     <string name="app_name">ParkujPL-Mobile</string>
 
+    <!-- Activities - Labels -->
+    <string name="start_activity_label">ParkujPL-Mobile</string>
+    <string name="get_points_activity_label">Wprowadź dane</string>
+    <string name="parking_list_activity_label">Lista parkingów</string>
+
     <!-- StartFragment -->
     <string name="btn_lead_to_nearest_parking">Nawiguj do najbliższego parkingu</string>
     <string name="btn_lead_to_a_point">Nawiguj do określonego punktu</string>
     <string name="btn_show_map">Pokaż mapę z zaznaczonymi parkingami</string>
+
+    <!-- GetPointsFragment -->
+    <string name="et_start_point">Wybierz punkt początkowy</string>
+    <string name="et_end_point">Wybierz punkt końcowy</string>
+    <string name="btn_ok">Ok</string>
+    <string name="some_edit_texts_are_empty">Pola nie mogą być puste</string>
 
 </resources>
