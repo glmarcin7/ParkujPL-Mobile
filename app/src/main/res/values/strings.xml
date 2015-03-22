@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ParkujPL-Mobile</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- StartFragment -->
+    <string name="btn_lead_to_nearest_parking">Nawiguj do najbliższego parkingu</string>
+    <string name="btn_lead_to_a_point">Nawiguj do określonego punktu</string>
+    <string name="btn_show_map">Pokaż mapę z zaznaczonymi parkingami</string>
+
 </resources>

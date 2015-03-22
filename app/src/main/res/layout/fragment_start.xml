@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.parkujznami.parkujpl_mobile.fragments.StartFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_lead_to_nearest_parking"
+            style="@style/fragment_start_button"
+            android:text="@string/btn_lead_to_nearest_parking" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_start_space_between_buttons" />
+
+        <Button
+            android:id="@+id/btn_lead_to_a_point"
+            style="@style/fragment_start_button"
+            android:text="@string/btn_lead_to_a_point" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_start_space_between_buttons" />
+
+        <Button
+            android:id="@+id/btn_show_map"
+            style="@style/fragment_start_button"
+            android:text="@string/btn_show_map" />
+
+    </LinearLayout>
+</RelativeLayout>
