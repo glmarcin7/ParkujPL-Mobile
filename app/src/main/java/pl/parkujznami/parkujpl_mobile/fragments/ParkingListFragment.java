@@ -16,7 +16,7 @@ import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
 import pl.parkujznami.parkujpl_mobile.models.report.ReportInRequest;
 import pl.parkujznami.parkujpl_mobile.models.report.RequestForReport;
 import pl.parkujznami.parkujpl_mobile.models.report.ResponseWithReport;
-import pl.parkujznami.parkujpl_mobile.network.Client;
+import pl.parkujznami.parkujpl_mobile.network.ApiClient;
 import retrofit.RestAdapter;
 
 /**
@@ -37,11 +37,11 @@ public class ParkingListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_parking_list, container, false);
         //getCities();
         //getParking();
-        getReport();
+        //getReport();
         return view;
     }
 
-    private void getReport() {
+    /*private void getReport() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -50,15 +50,15 @@ public class ParkingListFragment extends Fragment {
                 .setEndpoint(getActivity().getString(R.string.api_url))
                 .build();
 
-        // Create an instance of our Client API interface.
-        Client client = restAdapter.create(Client.class);
+        // Create an instance of our ApiClient API interface.
+        ApiClient apiClient = restAdapter.create(ApiClient.class);
 
         // Fetch a list of cities.
         RequestForReport requestForReport = new RequestForReport();
         ReportInRequest reportInRequest = new ReportInRequest();
         reportInRequest.setAvailabilty(3);
         requestForReport.setReportInRequest(reportInRequest);
-        ResponseWithReport report = client.report(4, requestForReport);
+        ResponseWithReport report = apiClient.report(4, requestForReport);
     }
 
     private void getParking() {
@@ -70,11 +70,11 @@ public class ParkingListFragment extends Fragment {
                 .setEndpoint(getActivity().getString(R.string.api_url))
                 .build();
 
-        // Create an instance of our Client API interface.
-        Client client = restAdapter.create(Client.class);
+        // Create an instance of our ApiClient API interface.
+        ApiClient apiClient = restAdapter.create(ApiClient.class);
 
         // Fetch a list of cities.
-        ResponseWithParking parking = client.parking(
+        ResponseWithParking parking = apiClient.parking(
                 1,
                 "Poznań, Dąbrowskiego 1",
                 1000.0,
@@ -97,13 +97,13 @@ public class ParkingListFragment extends Fragment {
                 .setEndpoint(getActivity().getString(R.string.api_url))
                 .build();
 
-        // Create an instance of our Client API interface.
-        Client client = restAdapter.create(Client.class);
+        // Create an instance of our ApiClient API interface.
+        ApiClient apiClient = restAdapter.create(ApiClient.class);
 
         // Fetch a list of cities.
-        List<RespondedCity> cities = client.cities();
+        List<RespondedCity> cities = apiClient.cities();
 
-    }
+    }*/
 
 
 }

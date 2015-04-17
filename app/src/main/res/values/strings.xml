@@ -16,5 +16,8 @@
     <string name="et_end_point">Wybierz punkt końcowy</string>
     <string name="btn_ok">Ok</string>
     <string name="some_edit_texts_are_empty">Pola nie mogą być puste</string>
+    <string name="gettingAvailableCitiesFailed">Pobieranie dostępnych miast nie powiodło się</string>
+    <string name="choose_destination_city">Wybierz docelowe miasto</string>
+    <string name="findNearestParkingFail">Nie odnaleziono żadnego parkingu</string>
 
 </resources>

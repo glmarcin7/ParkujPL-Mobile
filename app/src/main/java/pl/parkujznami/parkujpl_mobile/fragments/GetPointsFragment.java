@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.activities.ParkingListActivity;
+import timber.log.Timber;
 
 /**
  * Created by Marcin on 2015-03-22.
@@ -32,6 +33,8 @@ public class GetPointsFragment extends Fragment implements Button.OnClickListene
 
     @InjectView(R.id.et_end_point)
     EditText endPointEditText;
+
+    private Integer cityId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +53,9 @@ public class GetPointsFragment extends Fragment implements Button.OnClickListene
 
         ImageButton swapButton = (ImageButton) view.findViewById(R.id.ib_swap_start_and_end_points);
         swapButton.setOnClickListener(this);
+
+        cityId = getActivity().getIntent().getIntExtra(StartFragment.CITY_ID, -1);
+        Timber.d("cityId: %d", cityId);
     }
 
     @Override

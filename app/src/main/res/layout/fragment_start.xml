@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     tools:context="pl.parkujznami.parkujpl_mobile.fragments.StartFragment">
 
+    <Spinner
+        android:id="@+id/s_city_chooser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,4 +49,5 @@
             android:text="@string/btn_show_map" />
 
     </LinearLayout>
+
 </RelativeLayout>
