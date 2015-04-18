@@ -3,29 +3,30 @@
 
     <!-- Activities - Labels -->
     <string name="start_activity_label">ParkujPL-Mobile</string>
-    <string name="get_points_activity_label">Wprowadź dane</string>
     <string name="parking_list_activity_label">Lista parkingów</string>
 
     <!-- StartFragment -->
     <string name="btn_lead_to_nearest_parking">Nawiguj do najbliższego parkingu</string>
     <string name="btn_lead_to_a_point">Nawiguj do określonego punktu</string>
     <string name="btn_show_map">Pokaż mapę z zaznaczonymi parkingami</string>
-
-    <!-- GetPointsFragment -->
-    <string name="et_start_point">Wybierz punkt początkowy</string>
-    <string name="et_end_point">Wybierz punkt końcowy</string>
-    <string name="btn_ok">Ok</string>
-    <string name="some_edit_texts_are_empty">Pola nie mogą być puste</string>
     <string name="gettingAvailableCitiesFailed">Pobieranie dostępnych miast nie powiodło się</string>
     <string name="choose_destination_city">Wybierz docelowe miasto</string>
     <string name="findNearestParkingFail">Nie odnaleziono żadnego parkingu</string>
+    <string name="findParkingFail">Nie odnaleziono żadnego parkingu</string>
 
+    <!-- ParkingListFragment -->
+    <string name="et_end_point">Wybierz punkt docelowy</string>
+
+    <!-- ChooseNumberOFPlacesNotification -->
+    <string name="notification_ticker">Podziel się liczbą dostępnych miejsc</string>
     <string name="notification_main_text">Dzieląc się informacją na temat ilości dostępnych miejsc
-        parkingowych pomagasz sobie i innym
+        parkingowych pomagasz sobie i innym. Nie bądź obojętny!
     </string>
 
-    <string name="action_share">Share</string>
-    <string name="action_reply">Reply</string>
-    <string name="notification_ticker">Podziel się liczbą dostępnych miejsc</string>
-
+    <!-- Filters -->
+    <string-array name="sa_filters">
+        <item>Koszt</item>
+        <item>Liczba wolnych miejsc</item>
+        <item>Odległość od celu</item>
+    </string-array>
 </resources>

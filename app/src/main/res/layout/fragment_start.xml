@@ -4,15 +4,22 @@
     android:layout_height="match_parent"
     tools:context="pl.parkujznami.parkujpl_mobile.fragments.StartFragment">
 
-    <Spinner
-        android:id="@+id/s_city_chooser"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarWithSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"/>
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
 
+        <Spinner
+            android:id="@+id/s_city_chooser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:popupBackground="?attr/colorPrimary"
+            android:layout_gravity="right"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,14 +46,6 @@
             style="@style/fragment_start_button"
             android:text="@string/btn_lead_to_a_point" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_start_space_between_buttons" />
-
-        <Button
-            android:id="@+id/btn_show_map"
-            style="@style/fragment_start_button"
-            android:text="@string/btn_show_map" />
 
     </LinearLayout>
 

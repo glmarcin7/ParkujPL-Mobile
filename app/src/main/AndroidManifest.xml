@@ -22,9 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.GetPointsActivity"
-            android:label="@string/get_points_activity_label" />
-        <activity
             android:name=".activities.ParkingListActivity"
             android:label="@string/parking_list_activity_label" />
     </application>

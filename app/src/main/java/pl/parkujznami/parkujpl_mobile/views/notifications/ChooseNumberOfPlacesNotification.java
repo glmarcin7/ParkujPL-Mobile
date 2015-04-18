@@ -9,11 +9,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import pl.parkujznami.parkujpl_mobile.R;
+import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 
 /**
  * Helper class for showing and canceling choose number of places
@@ -93,7 +93,7 @@ public class ChooseNumberOfPlacesNotification {
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
+                                new Intent(context, StartActivity.class),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.
