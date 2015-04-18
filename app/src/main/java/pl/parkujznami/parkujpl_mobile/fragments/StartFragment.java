@@ -30,6 +30,7 @@ import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 import pl.parkujznami.parkujpl_mobile.network.ApiClient;
+import pl.parkujznami.parkujpl_mobile.views.notifications.ChooseNumberOfPlacesNotification;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -158,7 +159,13 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                     @Override
                     public void failure(RetrofitError error) {
                         Context context = getActivity();
-                        Toast.makeText(context, context.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, context.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
+
+                        //Tylko do testów
+                        Coords coords = new Coords();
+                        coords.setLatitude("52.40622836");
+                        coords.setLongitude("16.92763567");
+                        startNavigation(coords);
                     }
                 }
         );
@@ -192,15 +199,21 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                     public void onLocationUpdated(Location location) {
                         Timber.d("LocationUpdate");
                         if(onPosition(location, coords, 0.1)){
-                            bringToForeground();
+                            showNotification();
                             smartLocation.location().stop();
                         }
                     }
                 });
     }
 
-    private void bringToForeground() {
+    private void showNotification() {
         Timber.i("OnPosition");
+        Context context = getActivity();
+        ChooseNumberOfPlacesNotification.notify(
+                context,
+                context.getString(R.string.notification_ticker),
+                0
+        );
     }
 
     /**
