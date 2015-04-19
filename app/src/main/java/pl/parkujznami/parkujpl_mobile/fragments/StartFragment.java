@@ -1,8 +1,8 @@
 package pl.parkujznami.parkujpl_mobile.fragments;
 
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -42,9 +42,10 @@ import timber.log.Timber;
 public class StartFragment extends Fragment implements Button.OnClickListener {
 
     public static final String CITY_ID = "CITY_ID";
+    private Activity mActivity;
     private Spinner mCitiesChooser;
-    private Button leadToNearestParkingButton;
-    Button leadToAPointButton;
+    private Button mLeadToNearestParkingButton;
+    private Button mLeadToAPointButton;
 
 
     public StartFragment() {
@@ -63,18 +64,20 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     }
 
     private void initialize(View view) {
+        mActivity = getActivity();
+
         // Set toolbar
         Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbarWithSpinner);
-        ((StartActivity)getActivity()).setSupportActionBar(toolbar);
+        ((StartActivity)mActivity).setSupportActionBar(toolbar);
 
         // Initialize
         mCitiesChooser = (Spinner) view.findViewById(R.id.s_city_chooser);
-        leadToNearestParkingButton = (Button) view.findViewById(R.id.btn_lead_to_nearest_parking);
-        leadToAPointButton = (Button) view.findViewById(R.id.btn_lead_to_a_point);
+        mLeadToNearestParkingButton = (Button) view.findViewById(R.id.btn_lead_to_nearest_parking);
+        mLeadToAPointButton = (Button) view.findViewById(R.id.btn_lead_to_a_point);
     }
 
     private void findCities() {
-        ApiClient.getParkujPlApiClient(getActivity()).cities(new Callback<List<RespondedCity>>() {
+        ApiClient.getParkujPlApiClient(mActivity).cities(new Callback<List<RespondedCity>>() {
             @Override
             public void success(List<RespondedCity> respondedCities, Response response) {
 
@@ -89,7 +92,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                 }
 
                 SimpleAdapter spinnerArrayAdapter = new SimpleAdapter(
-                        getActivity(),
+                        mActivity,
                         fillMaps,
                         R.layout.spinner_dropdown_item,
                         from,
@@ -104,25 +107,24 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
 
             @Override
             public void failure(RetrofitError error) {
-                Context context = getActivity();
-                Toast.makeText(context, context.getString(R.string.gettingAvailableCitiesFailed), Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity, mActivity.getString(R.string.getting_available_cities_failed), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void activateButtons() {
-        leadToNearestParkingButton.setOnClickListener(this);
-        leadToNearestParkingButton.setEnabled(true);
+        mLeadToNearestParkingButton.setOnClickListener(this);
+        mLeadToNearestParkingButton.setEnabled(true);
 
-        leadToAPointButton.setOnClickListener(this);
-        leadToAPointButton.setEnabled(true);
+        mLeadToAPointButton.setOnClickListener(this);
+        mLeadToAPointButton.setEnabled(true);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_lead_to_nearest_parking:
-                SmartLocation smartLocation = new SmartLocation.Builder(getActivity()).logging(true).build();
+                SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
                 smartLocation
                         .location()
                         .oneFix()
@@ -143,7 +145,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     }
 
     private void findParking(Double latitude, Double longitude) {
-        ApiClient.getParkujPlApiClient(getActivity()).parking(
+        ApiClient.getParkujPlApiClient(mActivity).parking(
                 ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId(),
                 latitude + "," + longitude,
                 1500.0,
@@ -158,24 +160,25 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                     public void success(ResponseWithParking responseWithParking, Response response) {
                         List<Parking> parkings = responseWithParking.getParkings();
                         if (parkings != null && !parkings.isEmpty()) {
-                            Coords coords = parkings.get(0).getCoords();
-                            Navigation.startNavigation(coords, getActivity());
+                            Parking parking = parkings.get(0);
+                            Navigation.startNavigation(
+                                    parking.getId(),
+                                    parking.getCoords(),
+                                    mActivity);
                         } else {
-                            Context context = getActivity();
-                            Toast.makeText(context, context.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity, mActivity.getString(R.string.find_nearest_parking_fail), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Context context = getActivity();
-                        //Toast.makeText(context, context.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mActivity, mActivity.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
 
                         //Tylko do testów
                         Coords coords = new Coords();
                         coords.setLatitude("52.40622836");
                         coords.setLongitude("16.92763567");
-                        Navigation.startNavigation(coords, getActivity());
+                        Navigation.startNavigation(0, coords, mActivity);
                     }
                 }
         );
@@ -184,7 +187,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
 
     private void startParkingListActivity() {
         Integer cityId = ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId();
-        Intent intent = new Intent(getActivity(), ParkingListActivity.class);
+        Intent intent = new Intent(mActivity, ParkingListActivity.class);
         intent.putExtra(StartFragment.CITY_ID, cityId);
         startActivity(intent);
     }

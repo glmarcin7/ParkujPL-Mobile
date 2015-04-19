@@ -8,16 +8,16 @@
         android:id="@+id/toolbarWithSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary">
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize">
 
         <Spinner
             android:id="@+id/s_city_chooser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_gravity="right"
             android:popupBackground="?attr/colorPrimary"
-            android:layout_gravity="right"/>
+            android:visibility="gone" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -34,7 +34,8 @@
 
         <Button
             android:id="@+id/btn_lead_to_nearest_parking"
-            style="@style/fragment_start_button"
+            style="@style/fragment_start_and_choose_number_of_free_spots_button"
+            android:enabled="false"
             android:text="@string/btn_lead_to_nearest_parking" />
 
         <View
@@ -43,7 +44,8 @@
 
         <Button
             android:id="@+id/btn_lead_to_a_point"
-            style="@style/fragment_start_button"
+            style="@style/fragment_start_and_choose_number_of_free_spots_button"
+            android:enabled="false"
             android:text="@string/btn_lead_to_a_point" />
 
 

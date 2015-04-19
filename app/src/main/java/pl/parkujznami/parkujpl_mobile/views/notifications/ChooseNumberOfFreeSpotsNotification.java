@@ -13,7 +13,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import pl.parkujznami.parkujpl_mobile.R;
-import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
+import pl.parkujznami.parkujpl_mobile.activities.ChooseNumberOfFreeSpotsActivity;
 
 /**
  * Helper class for showing and canceling choose number of places
@@ -22,11 +22,11 @@ import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
  * This class makes heavy use of the {@link NotificationCompat.Builder} helper
  * class to create notifications in a backward-compatible way.
  */
-public class ChooseNumberOfPlacesNotification {
+public class ChooseNumberOfFreeSpotsNotification {
     /**
      * The unique identifier for this type of notification.
      */
-    private static final String NOTIFICATION_TAG = "ChooseNumberOfPlaces";
+    public static final String NOTIFICATION_TAG = "ChooseNumberOfFreeSpots";
 
     /**
      * Shows the notification, or updates a previously shown notification of
@@ -44,7 +44,7 @@ public class ChooseNumberOfPlacesNotification {
      * @see #cancel(Context)
      */
     public static void notify(final Context context,
-                              final String titleText, final int number) {
+                              final String titleText, final int parkingId) {
         final Resources res = context.getResources();
 
         // This image is used as the notification's large icon (thumbnail).
@@ -57,6 +57,8 @@ public class ChooseNumberOfPlacesNotification {
         final String text = res.getString(
                 R.string.notification_main_text, titleText);
 
+        final Intent intent = new Intent(context, ChooseNumberOfFreeSpotsActivity.class);
+        intent.putExtra(NOTIFICATION_TAG, parkingId);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
@@ -82,18 +84,13 @@ public class ChooseNumberOfPlacesNotification {
                         // Set ticker text (preview) information for this notification.
                 .setTicker(ticker)
 
-                        // Show a number. This is useful when stacking notifications of
-                        // a single type.
-                .setNumber(number)
-
-
                         // Set the pending intent to be initiated when the user touches
                         // the notification.
                 .setContentIntent(
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                new Intent(context, StartActivity.class),
+                                intent,
                                 PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.

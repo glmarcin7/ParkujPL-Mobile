@@ -24,6 +24,9 @@
         <activity
             android:name=".activities.ParkingListActivity"
             android:label="@string/parking_list_activity_label" />
+        <activity
+            android:name=".activities.ChooseNumberOfFreeSpotsActivity"
+            android:label="@string/choose_number_of_parking_activity_label" />
     </application>
 
 </manifest>

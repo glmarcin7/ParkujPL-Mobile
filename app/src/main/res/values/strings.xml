@@ -4,15 +4,16 @@
     <!-- Activities - Labels -->
     <string name="start_activity_label">ParkujPL-Mobile</string>
     <string name="parking_list_activity_label">Lista parkingów</string>
+    <string name="choose_number_of_parking_activity_label">Liczba dostępnych miejsc</string>
 
     <!-- StartFragment -->
     <string name="btn_lead_to_nearest_parking">Nawiguj do najbliższego parkingu</string>
     <string name="btn_lead_to_a_point">Nawiguj do określonego punktu</string>
     <string name="btn_show_map">Pokaż mapę z zaznaczonymi parkingami</string>
-    <string name="gettingAvailableCitiesFailed">Pobieranie dostępnych miast nie powiodło się</string>
+    <string name="getting_available_cities_failed">Pobieranie dostępnych miast nie powiodło się</string>
     <string name="choose_destination_city">Wybierz docelowe miasto</string>
-    <string name="findNearestParkingFail">Nie odnaleziono żadnego parkingu</string>
-    <string name="findParkingFail">Nie odnaleziono żadnego parkingu</string>
+    <string name="find_nearest_parking_fail">Nie odnaleziono żadnego parkingu</string>
+    <string name="find_parking_fail">Nie odnaleziono żadnego parkingu</string>
 
     <!-- ParkingListFragment -->
     <string name="et_end_point">Wybierz punkt docelowy</string>
@@ -22,6 +23,13 @@
     <string name="notification_main_text">Dzieląc się informacją na temat ilości dostępnych miejsc
         parkingowych pomagasz sobie i innym. Nie bądź obojętny!
     </string>
+
+    <!-- ChooseNumberOfFreeSpots -->
+    <string name="btn_little_space">Mała liczba miejsc</string>
+    <string name="btn_the_average_amount_of_space">Średnia liczba miejsc miejsc</string>
+    <string name="btn_a_lot_of_space">Duża liczba miejsc</string>
+    <string name="thanks_for_sharing">Dziękujemy za informację</string>
+    <string name="reporting_failed">Nie udało się przekazać informacji</string>
 
     <!-- Filters -->
     <string-array name="sa_filters">

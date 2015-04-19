@@ -1,6 +1,5 @@
 package pl.parkujznami.parkujpl_mobile.utils;
 
-import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,7 @@ import io.nlopez.smartlocation.SmartLocation;
 import io.nlopez.smartlocation.location.config.LocationParams;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
-import pl.parkujznami.parkujpl_mobile.views.notifications.ChooseNumberOfPlacesNotification;
+import pl.parkujznami.parkujpl_mobile.views.notifications.ChooseNumberOfFreeSpotsNotification;
 import timber.log.Timber;
 
 /**
@@ -20,10 +19,12 @@ import timber.log.Timber;
  */
 public class Navigation {
 
-    private static Context context;
+    private static Context mContext;
+    private static int mParkingId;
 
-    public static void startNavigation(Coords coords, Context activity) {
-        context = activity;
+    public static void startNavigation(Integer parkingId, Coords coords, Context context) {
+        mContext = context;
+        mParkingId = parkingId;
         Uri gmmIntentUri = Uri.parse(
                 "google.navigation:q="
                         + coords.getLatitude()
@@ -33,7 +34,7 @@ public class Navigation {
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         try {
-            context.startActivity(mapIntent);
+            mContext.startActivity(mapIntent);
             startNavigationStopService(coords);
         } catch (ActivityNotFoundException e) {
             Timber.i("Brak zainstalowanych map google");
@@ -42,7 +43,7 @@ public class Navigation {
     }
 
     private static void startNavigationStopService(final Coords coords) {
-        final SmartLocation smartLocation = new SmartLocation.Builder(context).logging(true).build();
+        final SmartLocation smartLocation = new SmartLocation.Builder(mContext).logging(true).build();
         smartLocation
                 .location()
                 .config(LocationParams.NAVIGATION)
@@ -60,10 +61,10 @@ public class Navigation {
 
     private static void showNotification() {
         Timber.i("OnPosition");
-        ChooseNumberOfPlacesNotification.notify(
-                context,
-                context.getString(R.string.notification_ticker),
-                0
+        ChooseNumberOfFreeSpotsNotification.notify(
+                mContext,
+                mContext.getString(R.string.notification_ticker),
+                mParkingId
         );
     }
 

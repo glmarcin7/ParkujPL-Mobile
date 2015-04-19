@@ -1,10 +1,9 @@
 package pl.parkujznami.parkujpl_mobile.fragments;
 
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +16,16 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import pl.parkujznami.parkujpl_mobile.R;
-import pl.parkujznami.parkujpl_mobile.models.city.RespondedCity;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
-import pl.parkujznami.parkujpl_mobile.models.report.ReportInRequest;
-import pl.parkujznami.parkujpl_mobile.models.report.RequestForReport;
-import pl.parkujznami.parkujpl_mobile.models.report.ResponseWithReport;
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 import pl.parkujznami.parkujpl_mobile.network.ApiClient;
 import pl.parkujznami.parkujpl_mobile.utils.Navigation;
 import pl.parkujznami.parkujpl_mobile.views.adapters.ParkingAdapter;
 import retrofit.Callback;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -41,11 +34,12 @@ import retrofit.client.Response;
  */
 public class ParkingListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-    private Integer cityId;
-    private EditText destinationEditText;
-    private ImageButton imageButton;
-    private ListView listView;
-    private Spinner spinner;
+    private Activity mActivity;
+    private Integer mCityId;
+    private EditText mDestinationEditText;
+    private ImageButton mImageButton;
+    private ListView mListView;
+    private Spinner mFiltersSpinner;
 
     public ParkingListFragment() {
         // Required empty public constructor
@@ -62,24 +56,25 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     }
 
     private void initialize(View view) {
+        mActivity = getActivity();
 
-        cityId = getActivity().getIntent().getIntExtra(StartFragment.CITY_ID, -1);
+        mCityId = mActivity.getIntent().getIntExtra(StartFragment.CITY_ID, -1);
 
-        destinationEditText = (EditText) view.findViewById(R.id.et_end_point);
+        mDestinationEditText = (EditText) view.findViewById(R.id.et_end_point);
 
-        imageButton = (ImageButton) view.findViewById(R.id.ib_look_for);
-        imageButton.setOnClickListener(this);
+        mImageButton = (ImageButton) view.findViewById(R.id.ib_look_for);
+        mImageButton.setOnClickListener(this);
 
-        spinner = (Spinner) view.findViewById(R.id.s_filters);
-        spinner.setAdapter(new ArrayAdapter<>(
-                getActivity(),
+        mFiltersSpinner = (Spinner) view.findViewById(R.id.s_filters);
+        mFiltersSpinner.setAdapter(new ArrayAdapter<>(
+                mActivity,
                 android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.sa_filters)
         ));
-        spinner.setOnItemSelectedListener(this);
+        mFiltersSpinner.setOnItemSelectedListener(this);
 
-        listView = (ListView) view.findViewById(R.id.lv_list_of_parking);
-        listView.setOnItemClickListener(this);
+        mListView = (ListView) view.findViewById(R.id.lv_list_of_parking);
+        mListView.setOnItemClickListener(this);
 
     }
 
@@ -93,9 +88,9 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     }
 
     private void search() {
-        ApiClient.getParkujPlApiClient(getActivity()).parking(
-                cityId,
-                destinationEditText.getText().toString(),
+        ApiClient.getParkujPlApiClient(mActivity).parking(
+                mCityId,
+                mDestinationEditText.getText().toString(),
                 1500.0,
                 0.0,
                 0.0,
@@ -108,21 +103,19 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                     public void success(ResponseWithParking responseWithParking, Response response) {
                         List<Parking> parkings = responseWithParking.getParkings();
                         if (parkings != null && !parkings.isEmpty()) {
-                            listView.setAdapter(new ParkingAdapter(
-                                    getActivity(),
+                            mListView.setAdapter(new ParkingAdapter(
+                                    mActivity,
                                     android.R.layout.simple_list_item_1,
                                     parkings
                             ));
                         } else {
-                            Context context = getActivity();
-                            Toast.makeText(context, context.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity, mActivity.getString(R.string.find_nearest_parking_fail), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Context context = getActivity();
-                        //Toast.makeText(context, context.getString(R.string.findParkingFail), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(mActivity, mActivity.getString(R.string.findParkingFail), Toast.LENGTH_LONG).show();
 
                         //Tylko do testów
                         Parking parking1 = new Parking();
@@ -142,8 +135,8 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                         List<Parking> parkings = new ArrayList<>();
                         parkings.add(parking1);
                         parkings.add(parking2);
-                        listView.setAdapter(new ParkingAdapter(
-                                getActivity(),
+                        mListView.setAdapter(new ParkingAdapter(
+                                mActivity,
                                 android.R.layout.simple_list_item_1,
                                 parkings
                         ));
@@ -157,7 +150,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         switch (parent.getId()) {
             case R.id.lv_list_of_parking:
                 Parking selectedItem = (Parking) parent.getItemAtPosition(position);
-                Navigation.startNavigation(selectedItem.getCoords(), getActivity());
+                Navigation.startNavigation(selectedItem.getId(), selectedItem.getCoords(), mActivity);
                 break;
         }
     }
@@ -179,25 +172,4 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-
-    /*private void getReport() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.BASIC)
-                .setEndpoint(getActivity().getString(R.string.api_url))
-                .build();
-
-        // Create an instance of our ApiClient API interface.
-        ApiClient apiClient = restAdapter.create(ApiClient.class);
-
-        // Fetch a list of cities.
-        RequestForReport requestForReport = new RequestForReport();
-        ReportInRequest reportInRequest = new ReportInRequest();
-        reportInRequest.setAvailabilty(3);
-        requestForReport.setReportInRequest(reportInRequest);
-        ResponseWithReport report = apiClient.report(4, requestForReport);
-    }*/
 }
