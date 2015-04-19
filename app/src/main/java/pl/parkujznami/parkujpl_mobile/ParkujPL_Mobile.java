@@ -7,7 +7,7 @@ import timber.log.Timber;
 /**
  * Created by Marcin on 2015-04-14.
  */
-public class ParkujPL_Mobile extends Application{
+public class ParkujPL_Mobile extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

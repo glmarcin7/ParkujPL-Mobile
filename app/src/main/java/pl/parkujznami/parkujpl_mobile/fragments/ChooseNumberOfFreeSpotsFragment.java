@@ -2,6 +2,7 @@ package pl.parkujznami.parkujpl_mobile.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.parkujznami.parkujpl_mobile.R;
+import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 import pl.parkujznami.parkujpl_mobile.models.report.ReportInRequest;
 import pl.parkujznami.parkujpl_mobile.models.report.RequestForReport;
 import pl.parkujznami.parkujpl_mobile.models.report.ResponseWithReport;
@@ -34,7 +36,7 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
 
         private final int mRequestedCode;
 
-        NumberOfFreeSpots(int requestedCode){
+        NumberOfFreeSpots(int requestedCode) {
             this.mRequestedCode = requestedCode;
         }
     }
@@ -62,14 +64,14 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
         mListOfButtons.add(view.findViewById(R.id.btn_the_average_amount_of_space));
         mListOfButtons.add(view.findViewById(R.id.btn_a_lot_of_space));
 
-        for(View button : mListOfButtons){
+        for (View button : mListOfButtons) {
             button.setOnClickListener(this);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.btn_little_space:
                 sendInformationAboutNumberOfFreeSpaces(NumberOfFreeSpots.LITTLE_SPACE);
                 break;
@@ -99,6 +101,8 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
                     @Override
                     public void success(ResponseWithReport responseWithReport, Response response) {
                         Toast.makeText(mActivity, mActivity.getString(R.string.thanks_for_sharing), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(mActivity, StartActivity.class));
+                        mActivity.finish();
                     }
 
                     @Override

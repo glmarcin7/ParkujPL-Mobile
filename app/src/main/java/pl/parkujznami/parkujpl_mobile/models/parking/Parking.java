@@ -3,6 +3,8 @@ package pl.parkujznami.parkujpl_mobile.models.parking;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 
 public class Parking {
@@ -170,4 +172,39 @@ public class Parking {
         this.availabilty = availabilty;
     }
 
+    /**
+     * Comparator for sorting the list by costs
+     */
+    public static Comparator<Parking> CostsComparator = new Comparator<Parking>() {
+
+        public int compare(Parking p1, Parking p2) {
+            Double p1Costs = Double.parseDouble(p1.getPrice());
+            Double p2Costs = Double.parseDouble(p2.getPrice());
+
+            //ascending order
+            if (p2Costs <= p1Costs) {
+                return 1;
+            }
+            return -1;
+        }
+    };
+
+    /**
+     * Comparator for sorting the list by distance
+     */
+    public static Comparator<Parking> DistanceComparator = new Comparator<Parking>() {
+
+        public int compare(Parking p1, Parking p2) {
+            String p1DistanceString = p1.getDistance();
+            String p2DistanceString = p2.getDistance();
+            Double p1Distance = Double.parseDouble(p1DistanceString.substring(0, p1DistanceString.length() - 1));
+            Double p2Distance = Double.parseDouble(p2DistanceString.substring(0, p2DistanceString.length() - 1));
+
+            //ascending order
+            if (p2Distance <= p1Distance) {
+                return 1;
+            }
+            return -1;
+        }
+    };
 }

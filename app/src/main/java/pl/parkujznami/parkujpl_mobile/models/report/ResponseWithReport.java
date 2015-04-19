@@ -10,18 +10,14 @@ public class ResponseWithReport {
     private ReportInResponse reportInResponse;
 
     /**
-     *
-     * @return
-     * The reportInResponse
+     * @return The reportInResponse
      */
     public ReportInResponse getReportInResponse() {
         return reportInResponse;
     }
 
     /**
-     *
-     * @param reportInResponse
-     * The report_in_response
+     * @param reportInResponse The report_in_response
      */
     public void setReportInResponse(ReportInResponse reportInResponse) {
         this.reportInResponse = reportInResponse;

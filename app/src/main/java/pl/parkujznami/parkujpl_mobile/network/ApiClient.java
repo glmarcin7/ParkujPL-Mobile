@@ -25,9 +25,9 @@ public class ApiClient {
 
     private static ParkujPlApiInterface sParkujPlService;
 
-    public static ParkujPlApiInterface getParkujPlApiClient(Context context){
+    public static ParkujPlApiInterface getParkujPlApiClient(Context context) {
 
-        if(sParkujPlService == null) {
+        if (sParkujPlService == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setEndpoint(context.getString(R.string.api_url))

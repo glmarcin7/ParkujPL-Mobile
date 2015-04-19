@@ -8,7 +8,7 @@ import pl.parkujznami.parkujpl_mobile.fragments.ChooseNumberOfFreeSpotsFragment;
 /**
  * Created by Marcin on 2015-04-19.
  */
-public class ChooseNumberOfFreeSpotsActivity extends BaseActivity{
+public class ChooseNumberOfFreeSpotsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

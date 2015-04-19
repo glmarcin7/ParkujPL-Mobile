@@ -29,7 +29,7 @@ public class ParkingAdapter extends ArrayAdapter {
                     .inflate(android.R.layout.simple_list_item_1, parent, false);
         }
         TextView titleTextView = ViewHolder.get(convertView, android.R.id.text1);
-        titleTextView.setText(((Parking)getItem(position)).getAddress());
+        titleTextView.setText(((Parking) getItem(position)).getDistance());
         return convertView;
     }
 }

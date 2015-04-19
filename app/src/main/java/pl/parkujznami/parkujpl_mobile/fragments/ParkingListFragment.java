@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import pl.parkujznami.parkujpl_mobile.R;
@@ -40,6 +42,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     private ImageButton mImageButton;
     private ListView mListView;
     private Spinner mFiltersSpinner;
+    private List<Parking> mParkings;
 
     public ParkingListFragment() {
         // Required empty public constructor
@@ -101,12 +104,13 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                 new Callback<ResponseWithParking>() {
                     @Override
                     public void success(ResponseWithParking responseWithParking, Response response) {
-                        List<Parking> parkings = responseWithParking.getParkings();
-                        if (parkings != null && !parkings.isEmpty()) {
+                        mParkings = responseWithParking.getParkings();
+                        if (mParkings != null && !mParkings.isEmpty()) {
+                            Collections.sort(mParkings, getFilter());
                             mListView.setAdapter(new ParkingAdapter(
                                     mActivity,
                                     android.R.layout.simple_list_item_1,
-                                    parkings
+                                    mParkings
                             ));
                         } else {
                             Toast.makeText(mActivity, mActivity.getString(R.string.find_nearest_parking_fail), Toast.LENGTH_LONG).show();
@@ -145,6 +149,18 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         );
     }
 
+    private Comparator<? super Parking> getFilter() {
+        String selectedItem = (String) mFiltersSpinner.getSelectedItem();
+        if (selectedItem.equals("Koszt")) {
+            return Parking.CostsComparator;
+        } else if (selectedItem.equals("Liczba wolnych miejsc")) {
+            return Parking.CostsComparator;
+        } else if (selectedItem.equals("Odległość od celu")) {
+            return Parking.DistanceComparator;
+        }
+        return null;
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
@@ -156,7 +172,10 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     }
 
     private void updateList() {
-
+        if (mParkings != null && !mParkings.isEmpty()) {
+            Collections.sort(mParkings, getFilter());
+            ((ParkingAdapter) mListView.getAdapter()).notifyDataSetChanged();
+        }
     }
 
     @Override

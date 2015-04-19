@@ -51,7 +51,7 @@ public class Navigation {
                     @Override
                     public void onLocationUpdated(Location location) {
                         Timber.d("LocationUpdate");
-                        if(onPosition(location, coords, 0.1)){
+                        if (onPosition(location, coords, 0.1)) {
                             showNotification();
                             smartLocation.location().stop();
                         }
@@ -69,19 +69,18 @@ public class Navigation {
     }
 
     /**
-     *
-     * @param myLocation - my location
+     * @param myLocation       - my location
      * @param parkingsLocation - parking's location
-     * @param accuracy - in km
+     * @param accuracy         - in km
      * @return
      */
     private static boolean onPosition(Location myLocation, Coords parkingsLocation, Double accuracy) {
-        if(distance(
+        if (distance(
                 myLocation.getLatitude(),
                 myLocation.getLongitude(),
                 Double.parseDouble(parkingsLocation.getLatitude()),
                 Double.parseDouble(parkingsLocation.getLongitude())
-        ) <= accuracy){
+        ) <= accuracy) {
             return true;
         }
         return false;
@@ -89,6 +88,7 @@ public class Navigation {
 
     /**
      * Calculate distance between two points
+     *
      * @param lat1
      * @param lon1
      * @param lat2

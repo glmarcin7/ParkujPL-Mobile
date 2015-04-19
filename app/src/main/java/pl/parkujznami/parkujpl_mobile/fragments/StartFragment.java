@@ -67,8 +67,8 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         mActivity = getActivity();
 
         // Set toolbar
-        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbarWithSpinner);
-        ((StartActivity)mActivity).setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarWithSpinner);
+        ((StartActivity) mActivity).setSupportActionBar(toolbar);
 
         // Initialize
         mCitiesChooser = (Spinner) view.findViewById(R.id.s_city_chooser);

@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.StartActivity"
-            android:label="@string/start_activity_label" >
+            android:label="@string/start_activity_label"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
