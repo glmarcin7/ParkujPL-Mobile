@@ -3,6 +3,7 @@ package pl.parkujznami.parkujpl_mobile.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
     private Activity mActivity;
     private Integer mCityId;
+    private String mSearchedPhrase;
     private EditText mDestinationEditText;
     private ImageButton mImageButton;
     private ListView mListView;
@@ -58,12 +60,21 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        search();
+    }
+
     private void initialize(View view) {
         mActivity = getActivity();
 
-        mCityId = mActivity.getIntent().getIntExtra(StartFragment.CITY_ID, -1);
+        Intent intent = mActivity.getIntent();
+        mCityId = intent.getIntExtra(StartFragment.CITY_ID, -1);
+        mSearchedPhrase = intent.getStringExtra(StartFragment.SEARCHED_PHRASE);
 
-        mDestinationEditText = (EditText) view.findViewById(R.id.et_end_point);
+        mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
+        mDestinationEditText.setText(mSearchedPhrase);
 
         mImageButton = (ImageButton) view.findViewById(R.id.ib_look_for);
         mImageButton.setOnClickListener(this);
@@ -109,11 +120,11 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                             Collections.sort(mParkings, getFilter());
                             mListView.setAdapter(new ParkingAdapter(
                                     mActivity,
-                                    android.R.layout.simple_list_item_1,
+                                    R.layout.list_view_with_parkings_item,
                                     mParkings
                             ));
                         } else {
-                            Toast.makeText(mActivity, mActivity.getString(R.string.find_nearest_parking_fail), Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
                         }
                     }
 

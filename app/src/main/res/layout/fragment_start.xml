@@ -2,24 +2,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="pl.parkujznami.parkujpl_mobile.fragments.StartFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarWithSpinner"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize">
+        android:layout_height="match_parent"
+        android:background="@color/transparent_blue" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_destination"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center_vertical"
+            android:text="@string/start_activity_label"
+            android:textColor="@android:color/white"
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/s_city_chooser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:popupBackground="?attr/colorPrimary"
-            android:visibility="gone" />
+            android:layout_weight="1"
+            android:popupBackground="@color/transparent_blue"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
-    </android.support.v7.widget.Toolbar>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,20 +52,28 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_lead_to_nearest_parking"
-            style="@style/fragment_start_and_choose_number_of_free_spots_button"
+            android:id="@+id/btn_navigate"
+            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
             android:enabled="false"
-            android:text="@string/btn_lead_to_nearest_parking" />
+            android:text="@string/btn_navigate" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_start_space_between_buttons" />
 
-        <Button
-            android:id="@+id/btn_lead_to_a_point"
-            style="@style/fragment_start_and_choose_number_of_free_spots_button"
-            android:enabled="false"
-            android:text="@string/btn_lead_to_a_point" />
+        <EditText
+            android:id="@+id/et_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/et_destination_hint"
+            android:singleLine="true"
+            android:textColorHint="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_edit_text_explanation"/>
 
 
     </LinearLayout>

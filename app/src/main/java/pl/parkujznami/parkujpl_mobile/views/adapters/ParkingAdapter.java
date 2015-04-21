@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.utils.ViewHolder;
 
@@ -26,10 +27,22 @@ public class ParkingAdapter extends ArrayAdapter {
         if (convertView == null) {
             // inflate the layout
             convertView = LayoutInflater.from(context)
-                    .inflate(android.R.layout.simple_list_item_1, parent, false);
+                    .inflate(R.layout.list_view_with_parkings_item, parent, false);
         }
-        TextView titleTextView = ViewHolder.get(convertView, android.R.id.text1);
-        titleTextView.setText(((Parking) getItem(position)).getDistance());
+        Parking parking = (Parking) getItem(position);
+
+        TextView nameTextView = ViewHolder.get(convertView, R.id.tv_parkings_name);
+        nameTextView.setText(parking.getName());
+
+        TextView distanceTextView = ViewHolder.get(convertView, R.id.tv_distance);
+        distanceTextView.setText(parking.getDistance());
+
+        TextView priceTextView = ViewHolder.get(convertView, R.id.tv_price);
+        priceTextView.setText(parking.getPrice() + "zł");
+
+        TextView availabilityTextView = ViewHolder.get(convertView, R.id.tv_availability);
+        availabilityTextView.setText("Duża liczba miejsc");
+
         return convertView;
     }
 }

@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
-    <Space
-        style="@style/fragment_choose_number_of_free_spots_space"
-        android:layout_height="20dp" />
-
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/notification_main_text"/>
+        android:layout_height="match_parent"
+        android:background="@color/transparent_blue" />
 
-    <Space
-        style="@style/fragment_choose_number_of_free_spots_space"
-        android:layout_height="20dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" >
 
-    <Button
-        android:id="@+id/btn_little_space"
-        style="@style/fragment_start_and_choose_number_of_free_spots_button"
-        android:text="@string/btn_little_space" />
+        <Space
+            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
+            android:layout_height="40dp" />
 
-    <Space
-        style="@style/fragment_choose_number_of_free_spots_space"
-        android:layout_height="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_main_text" />
 
-    <Button
-        android:id="@+id/btn_the_average_amount_of_space"
-        style="@style/fragment_start_and_choose_number_of_free_spots_button"
-        android:text="@string/btn_the_average_amount_of_space" />
+        <Space
+            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
+            android:layout_height="40dp" />
 
-    <Space
-        style="@style/fragment_choose_number_of_free_spots_space"
-        android:layout_height="20dp" />
+        <Button
+            android:id="@+id/btn_little_space"
+            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
+            android:text="@string/btn_little_space" />
 
-    <Button
-        android:id="@+id/btn_a_lot_of_space"
-        style="@style/fragment_start_and_choose_number_of_free_spots_button"
-        android:text="@string/btn_a_lot_of_space" />
+        <Space
+            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
+            android:layout_height="20dp" />
 
-    <Space
-        style="@style/fragment_choose_number_of_free_spots_space"
-        android:layout_height="20dp" />
+        <Button
+            android:id="@+id/btn_the_average_amount_of_space"
+            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
+            android:text="@string/btn_the_average_amount_of_space" />
 
+        <Space
+            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
+            android:layout_height="20dp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_a_lot_of_space"
+            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
+            android:text="@string/btn_a_lot_of_space" />
+
+        <Space
+            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
+            android:layout_height="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

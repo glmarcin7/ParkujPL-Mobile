@@ -48,7 +48,7 @@ public class ChooseNumberOfFreeSpotsNotification {
         final Resources res = context.getResources();
 
         // This image is used as the notification's large icon (thumbnail).
-        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.example_picture);
+        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.ic_p);
 
 
         final String ticker = titleText;
@@ -67,7 +67,7 @@ public class ChooseNumberOfFreeSpotsNotification {
 
                         // Set required fields, including the small icon, the
                         // notification title, and text.
-                .setSmallIcon(R.drawable.icon)
+                .setSmallIcon(R.drawable.ic_stat_p)
                 .setContentTitle(title)
                 .setContentText(text)
 

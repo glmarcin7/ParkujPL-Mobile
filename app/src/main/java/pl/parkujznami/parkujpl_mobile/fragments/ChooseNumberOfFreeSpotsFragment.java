@@ -112,24 +112,4 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
                 }
         );
     }
-
-    /*private void getReport() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.BASIC)
-                .setEndpoint(getActivity().getString(R.string.api_url))
-                .build();
-
-        // Create an instance of our ApiClient API interface.
-        ApiClient apiClient = restAdapter.create(ApiClient.class);
-
-        // Fetch a list of cities.
-        RequestForReport requestForReport = new RequestForReport();
-        ReportInRequest reportInRequest = new ReportInRequest();
-        reportInRequest.setAvailabilty(3);
-        requestForReport.setReportInRequest(reportInRequest);
-        ResponseWithReport report = apiClient.report(4, requestForReport);
-    }*/
 }

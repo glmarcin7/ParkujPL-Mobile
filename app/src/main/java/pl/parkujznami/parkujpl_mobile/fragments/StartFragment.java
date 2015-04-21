@@ -6,11 +6,11 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,7 +24,6 @@ import io.nlopez.smartlocation.SmartLocation;
 import io.nlopez.smartlocation.location.config.LocationParams;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.activities.ParkingListActivity;
-import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 import pl.parkujznami.parkujpl_mobile.models.city.RespondedCity;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
@@ -42,10 +41,11 @@ import timber.log.Timber;
 public class StartFragment extends Fragment implements Button.OnClickListener {
 
     public static final String CITY_ID = "CITY_ID";
+    public static final String SEARCHED_PHRASE = "SEARCHED_PHRASE";
     private Activity mActivity;
     private Spinner mCitiesChooser;
-    private Button mLeadToNearestParkingButton;
-    private Button mLeadToAPointButton;
+    private Button mNavigateButton;
+    private EditText mDestinationEditText;
 
 
     public StartFragment() {
@@ -66,14 +66,10 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     private void initialize(View view) {
         mActivity = getActivity();
 
-        // Set toolbar
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarWithSpinner);
-        ((StartActivity) mActivity).setSupportActionBar(toolbar);
-
         // Initialize
         mCitiesChooser = (Spinner) view.findViewById(R.id.s_city_chooser);
-        mLeadToNearestParkingButton = (Button) view.findViewById(R.id.btn_lead_to_nearest_parking);
-        mLeadToAPointButton = (Button) view.findViewById(R.id.btn_lead_to_a_point);
+        mNavigateButton = (Button) view.findViewById(R.id.btn_navigate);
+        mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
     }
 
     private void findCities() {
@@ -102,7 +98,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                 mCitiesChooser.setAdapter(spinnerArrayAdapter);
                 mCitiesChooser.setVisibility(View.VISIBLE);
 
-                activateButtons();
+                activateButton();
             }
 
             @Override
@@ -112,34 +108,34 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         });
     }
 
-    private void activateButtons() {
-        mLeadToNearestParkingButton.setOnClickListener(this);
-        mLeadToNearestParkingButton.setEnabled(true);
-
-        mLeadToAPointButton.setOnClickListener(this);
-        mLeadToAPointButton.setEnabled(true);
+    private void activateButton() {
+        mNavigateButton.setOnClickListener(this);
+        mNavigateButton.setEnabled(true);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_lead_to_nearest_parking:
-                SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
-                smartLocation
-                        .location()
-                        .oneFix()
-                        .config(LocationParams.NAVIGATION)
-                        .start(new OnLocationUpdatedListener() {
-                            @Override
-                            public void onLocationUpdated(Location location) {
-                                Timber.d("OneTimeLocationUpdate");
-                                findParking(location.getLatitude(), location.getLongitude());
-                                //findParking(52.39792823, 16.9029808);
-                            }
-                        });
-                break;
-            case R.id.btn_lead_to_a_point:
-                startParkingListActivity();
+            case R.id.btn_navigate:
+                if(mDestinationEditText != null
+                        && mDestinationEditText.getText() != null
+                        && !mDestinationEditText.getText().toString().isEmpty()) {
+                    startParkingListActivity();
+                } else{
+                    SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
+                    smartLocation
+                            .location()
+                            .oneFix()
+                            .config(LocationParams.NAVIGATION)
+                            .start(new OnLocationUpdatedListener() {
+                                @Override
+                                public void onLocationUpdated(Location location) {
+                                    Timber.d("OneTimeLocationUpdate");
+                                    findParking(location.getLatitude(), location.getLongitude());
+                                    //findParking(52.39792823, 16.9029808);
+                                }
+                            });
+                }
                 break;
         }
     }
@@ -166,7 +162,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                                     parking.getCoords(),
                                     mActivity);
                         } else {
-                            Toast.makeText(mActivity, mActivity.getString(R.string.find_nearest_parking_fail), Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -189,6 +185,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         Integer cityId = ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId();
         Intent intent = new Intent(mActivity, ParkingListActivity.class);
         intent.putExtra(StartFragment.CITY_ID, cityId);
+        intent.putExtra(StartFragment.SEARCHED_PHRASE, mDestinationEditText.getText().toString());
         startActivity(intent);
     }
 }

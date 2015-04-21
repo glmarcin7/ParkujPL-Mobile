@@ -1,25 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
-        <item name="windowActionBar">false</item>
-        <!-- android:textColorPrimaryInverse is the  color of the title
-       text in the Toolbar, in the Theme.AppCompat.Light theme:  -->
-        <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
-
-    <style name="fragment_start_and_choose_number_of_free_spots_button">
+    <style name="FragmentStartAndChooseNumberOfFreeSpotsButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ellipsize">end</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="fragment_choose_number_of_free_spots_space">
+    <style name="FragmentChooseNumberOfFreeSpotsSpace">
         <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="HorizontalLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
 </resources>
