@@ -117,11 +117,11 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_navigate:
-                if(mDestinationEditText != null
+                if (mDestinationEditText != null
                         && mDestinationEditText.getText() != null
                         && !mDestinationEditText.getText().toString().isEmpty()) {
                     startParkingListActivity();
-                } else{
+                } else {
                     SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
                     smartLocation
                             .location()
