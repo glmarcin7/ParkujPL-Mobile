@@ -32,7 +32,7 @@
 
         <Button
             android:id="@+id/btn_little_space"
-            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
+            style="@style/ChooseNumberOfFreeSpotsButton"
             android:text="@string/btn_little_space" />
 
         <Space
@@ -41,7 +41,7 @@
 
         <Button
             android:id="@+id/btn_the_average_amount_of_space"
-            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
+            style="@style/ChooseNumberOfFreeSpotsButton"
             android:text="@string/btn_the_average_amount_of_space" />
 
         <Space
@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/btn_a_lot_of_space"
-            style="@style/FragmentStartAndChooseNumberOfFreeSpotsButton"
+            style="@style/ChooseNumberOfFreeSpotsButton"
             android:text="@string/btn_a_lot_of_space" />
 
         <Space

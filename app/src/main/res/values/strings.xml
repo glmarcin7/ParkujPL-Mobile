@@ -7,7 +7,7 @@
     <string name="choose_number_of_parking_activity_label">Liczba dostępnych miejsc</string>
 
     <!-- StartFragment -->
-    <string name="btn_navigate">Rozpocznij nawigację</string>
+    <string name="btn_navigate">Rozpocznij\nnawigację</string>
     <string name="getting_available_cities_failed">Pobieranie dostępnych miast nie powiodło się</string>
     <string name="find_parking_fail">Nie odnaleziono żadnego parkingu</string>
     <string name="tv_edit_text_explanation">W przypadku, gdy pole jest puste wyszukiwany jest najbliższy parking</string>
@@ -33,6 +33,16 @@
     <string name="tv_distance_des">Odległośc:</string>
     <string name="tv_price_des">Cena:</string>
     <string name="tv_availability_des">Dostępność miejsc:</string>
+
+    <!-- enable GPS-->
+    <string name="enable_gps_title">By korzystac z nawigacji trzeba uruchomić GPS</string>
+    <string name="enable_gps">Włącz</string>
+    <string name="cancel_gps">Anuluj</string>
+
+    <!--enable Internet -->
+    <string name="enable_internet_title">By korzystac z nawigacji trzeba uruchomić internet</string>
+    <string name="enable_internet">Włącz</string>
+    <string name="cancel_internt">Anuluj</string>
 
     <!-- Filters -->
     <string-array name="sa_filters">

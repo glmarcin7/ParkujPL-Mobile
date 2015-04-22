@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 import pl.parkujznami.parkujpl_mobile.network.ApiClient;
+import pl.parkujznami.parkujpl_mobile.utils.GPS;
 import pl.parkujznami.parkujpl_mobile.utils.Navigation;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -46,6 +48,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     private Spinner mCitiesChooser;
     private Button mNavigateButton;
     private EditText mDestinationEditText;
+    private ProgressBar mLoadingProgressBar;
 
 
     public StartFragment() {
@@ -70,6 +73,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         mCitiesChooser = (Spinner) view.findViewById(R.id.s_city_chooser);
         mNavigateButton = (Button) view.findViewById(R.id.btn_navigate);
         mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
+        mLoadingProgressBar = (ProgressBar) view.findViewById(R.id.pb_loading);
     }
 
     private void findCities() {
@@ -110,7 +114,9 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
 
     private void activateButton() {
         mNavigateButton.setOnClickListener(this);
-        mNavigateButton.setEnabled(true);
+        mNavigateButton.setVisibility(View.VISIBLE);
+
+        mLoadingProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -122,6 +128,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                         && !mDestinationEditText.getText().toString().isEmpty()) {
                     startParkingListActivity();
                 } else {
+                    GPS.enableGPS(mActivity);
                     SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
                     smartLocation
                             .location()
