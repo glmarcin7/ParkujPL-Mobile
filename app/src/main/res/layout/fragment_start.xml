@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:popupBackground="@color/transparent_blue"
+            android:popupBackground="@color/light_blue"
             android:visibility="gone"
             tools:visibility="visible" />
 

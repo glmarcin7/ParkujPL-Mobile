@@ -1,6 +1,10 @@
 package pl.parkujznami.parkujpl_mobile.models.parking;
 
+import android.content.Context;
+
 import com.google.gson.annotations.Expose;
+
+import pl.parkujznami.parkujpl_mobile.R;
 
 public class Availabilty {
 
@@ -53,4 +57,19 @@ public class Availabilty {
         this.high = high;
     }
 
+    public Double getNumberOfFreeSpotsFactor() {
+        int sum = low + medium + high;
+        return ((double) (low + medium * 3 + high * 5)) / (sum != 0 ? sum : 1);
+    }
+
+    public String toString(Context context) {
+        final Double numberOfFreeSpotsFactor = getNumberOfFreeSpotsFactor();
+
+        if (numberOfFreeSpotsFactor < 1.5) return context.getString(R.string.s_really_little_space);
+        if (numberOfFreeSpotsFactor < 2.5) return context.getString(R.string.s_little_space);
+        if (numberOfFreeSpotsFactor < 3.5)
+            return context.getString(R.string.s_the_average_amount_of_space);
+        if (numberOfFreeSpotsFactor < 4.5) return context.getString(R.string.s_a_lot_of_space);
+        return context.getString(R.string.s_really_a_lot_of_space);
+    }
 }

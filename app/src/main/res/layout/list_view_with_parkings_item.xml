@@ -19,6 +19,12 @@
             android:text="@string/tv_parkings_name_des" />
 
         <TextView
+            android:id="@+id/tv_parkings_addres_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_parkings_addres_des" />
+
+        <TextView
             android:id="@+id/tv_distance_des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,6 +55,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Plac Wolności" />
+
+        <TextView
+            android:id="@+id/tv_parkings_addres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Poznań, Plac Wolności 19" />
 
         <TextView
             android:id="@+id/tv_distance"

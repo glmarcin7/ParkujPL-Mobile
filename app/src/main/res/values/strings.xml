@@ -22,14 +22,15 @@
     </string>
 
     <!-- ChooseNumberOfFreeSpots -->
-    <string name="btn_little_space">Mała liczba miejsc</string>
-    <string name="btn_the_average_amount_of_space">Średnia liczba miejsc miejsc</string>
-    <string name="btn_a_lot_of_space">Duża liczba miejsc</string>
+    <string name="btn_little_space">@string/s_little_space</string>
+    <string name="btn_the_average_amount_of_space">@string/s_the_average_amount_of_space</string>
+    <string name="btn_a_lot_of_space">@string/s_a_lot_of_space</string>
     <string name="thanks_for_sharing">Dziękujemy za informację</string>
     <string name="reporting_failed">Nie udało się przekazać informacji</string>
 
     <!-- list_view_with_parkings_item -->
     <string name="tv_parkings_name_des">Nazwa:</string>
+    <string name="tv_parkings_addres_des">Adres:</string>
     <string name="tv_distance_des">Odległośc:</string>
     <string name="tv_price_des">Cena:</string>
     <string name="tv_availability_des">Dostępność miejsc:</string>
@@ -45,9 +46,15 @@
     <string name="cancel_internt">Anuluj</string>
 
     <!-- Filters -->
-    <string-array name="sa_filters">
-        <item>Koszt</item>
-        <item>Liczba wolnych miejsc</item>
-        <item>Odległość od celu</item>
-    </string-array>
+    <string name="s_costs_of_parking">Koszt</string>
+    <string name="s_number_of_free_spots">Liczba wolnych miejsc</string>
+    <string name="s_distance_to_parking">Odległość od celu</string>
+
+    <!-- Number of free spots -->
+    <string name="s_really_little_space">Bardzo mała liczba miejsc</string>
+    <string name="s_little_space">Mała liczba miejsc</string>
+    <string name="s_the_average_amount_of_space">Średnia liczba miejsc</string>
+    <string name="s_a_lot_of_space">Duża liczba miejsc</string>
+    <string name="s_really_a_lot_of_space">Bardzo duża liczba miejsc</string>
+
 </resources>

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="api_url">Server address</string>
+    <string name="api_url">https://parkujpl.herokuapp.com</string>
 </resources>

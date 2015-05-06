@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import pl.parkujznami.parkujpl_mobile.R;
+import pl.parkujznami.parkujpl_mobile.models.parking.Availabilty;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
@@ -134,26 +135,43 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
                         //Tylko do testów
                         Parking parking1 = new Parking();
+                        parking1.setName("Dąbrowskiego 1");
                         parking1.setAddress("Dąbrowskiego 1");
                         Coords coords1 = new Coords();
                         coords1.setLatitude("52.41063962");
                         coords1.setLongitude("16.91310883");
                         parking1.setCoords(coords1);
+                        Availabilty availabilty1 = new Availabilty();
+                        availabilty1.setHigh(1);
+                        availabilty1.setMedium(1);
+                        availabilty1.setLow(1);
+                        parking1.setAvailabilty(availabilty1);
+                        parking1.setDistance("500m");
+                        parking1.setPrice("5.0");
 
                         Parking parking2 = new Parking();
-                        parking2.setAddress("Dąbrowskiego 10");
+                        parking2.setName("Plac Wolności");
+                        parking2.setAddress("Poznań, Plac Wolności 19");
                         Coords coords2 = new Coords();
                         coords2.setLatitude("52.41084904");
                         coords2.setLongitude("16.91186428");
                         parking2.setCoords(coords2);
+                        Availabilty availabilty2 = new Availabilty();
+                        availabilty2.setHigh(2);
+                        availabilty2.setMedium(1);
+                        availabilty2.setLow(0);
+                        parking2.setAvailabilty(availabilty2);
+                        parking2.setDistance("1200m");
+                        parking2.setPrice("4.0");
 
-                        List<Parking> parkings = new ArrayList<>();
-                        parkings.add(parking1);
-                        parkings.add(parking2);
+                        mParkings = new ArrayList<>();
+                        mParkings.add(parking1);
+                        mParkings.add(parking2);
+                        Collections.sort(mParkings, getFilter());
                         mListView.setAdapter(new ParkingAdapter(
                                 mActivity,
                                 android.R.layout.simple_list_item_1,
-                                parkings
+                                mParkings
                         ));
                     }
                 }
@@ -162,12 +180,12 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
     private Comparator<? super Parking> getFilter() {
         String selectedItem = (String) mFiltersSpinner.getSelectedItem();
-        if (selectedItem.equals("Koszt")) {
-            return Parking.CostsComparator;
-        } else if (selectedItem.equals("Liczba wolnych miejsc")) {
-            return Parking.CostsComparator;
-        } else if (selectedItem.equals("Odległość od celu")) {
-            return Parking.DistanceComparator;
+        if (selectedItem.equals(mActivity.getString(R.string.s_costs_of_parking))) {
+            return Parking.costsComparator;
+        } else if (selectedItem.equals(mActivity.getString(R.string.s_number_of_free_spots))) {
+            return Parking.spotsAvailabilityComparator;
+        } else if (selectedItem.equals(mActivity.getString(R.string.s_distance_to_parking))) {
+            return Parking.distanceComparator;
         }
         return null;
     }

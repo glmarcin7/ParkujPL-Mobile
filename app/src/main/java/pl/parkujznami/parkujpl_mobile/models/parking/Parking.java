@@ -175,7 +175,7 @@ public class Parking {
     /**
      * Comparator for sorting the list by costs
      */
-    public static Comparator<Parking> CostsComparator = new Comparator<Parking>() {
+    public static Comparator<Parking> costsComparator = new Comparator<Parking>() {
 
         public int compare(Parking p1, Parking p2) {
             Double p1Costs = Double.parseDouble(p1.getPrice());
@@ -192,7 +192,7 @@ public class Parking {
     /**
      * Comparator for sorting the list by distance
      */
-    public static Comparator<Parking> DistanceComparator = new Comparator<Parking>() {
+    public static Comparator<Parking> distanceComparator = new Comparator<Parking>() {
 
         public int compare(Parking p1, Parking p2) {
             String p1DistanceString = p1.getDistance();
@@ -202,6 +202,23 @@ public class Parking {
 
             //ascending order
             if (p2Distance <= p1Distance) {
+                return 1;
+            }
+            return -1;
+        }
+    };
+
+    /**
+     * Comparator for sorting the list by spots availability
+     */
+    public static Comparator<Parking> spotsAvailabilityComparator = new Comparator<Parking>() {
+
+        public int compare(Parking p1, Parking p2) {
+            Double p1AvailabilityFactor = p1.getAvailabilty().getNumberOfFreeSpotsFactor();
+            Double p2AvailabilityFactor = p2.getAvailabilty().getNumberOfFreeSpotsFactor();
+
+            //ascending order
+            if (p2AvailabilityFactor >= p1AvailabilityFactor) {
                 return 1;
             }
             return -1;

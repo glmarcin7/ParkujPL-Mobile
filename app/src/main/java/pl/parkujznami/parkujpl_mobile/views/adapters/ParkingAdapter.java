@@ -17,7 +17,7 @@ import pl.parkujznami.parkujpl_mobile.utils.ViewHolder;
  * Created by Marcin on 2015-04-18.
  */
 public class ParkingAdapter extends ArrayAdapter {
-    public ParkingAdapter(Context context, int resource, List objects) {
+    public ParkingAdapter(Context context, int resource, List<Parking> objects) {
         super(context, resource, objects);
     }
 
@@ -34,6 +34,9 @@ public class ParkingAdapter extends ArrayAdapter {
         TextView nameTextView = ViewHolder.get(convertView, R.id.tv_parkings_name);
         nameTextView.setText(parking.getName());
 
+        TextView adresTextView = ViewHolder.get(convertView, R.id.tv_parkings_addres);
+        adresTextView.setText(parking.getAddress());
+
         TextView distanceTextView = ViewHolder.get(convertView, R.id.tv_distance);
         distanceTextView.setText(parking.getDistance());
 
@@ -41,7 +44,7 @@ public class ParkingAdapter extends ArrayAdapter {
         priceTextView.setText(parking.getPrice() + "zł");
 
         TextView availabilityTextView = ViewHolder.get(convertView, R.id.tv_availability);
-        availabilityTextView.setText("Duża liczba miejsc");
+        availabilityTextView.setText(parking.getAvailabilty().toString(context));
 
         return convertView;
     }
