@@ -5,15 +5,18 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -74,11 +77,22 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         mCityId = intent.getIntExtra(StartFragment.CITY_ID, -1);
         mSearchedPhrase = intent.getStringExtra(StartFragment.SEARCHED_PHRASE);
 
-        mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
-        mDestinationEditText.setText(mSearchedPhrase);
-
         mImageButton = (ImageButton) view.findViewById(R.id.ib_look_for);
         mImageButton.setOnClickListener(this);
+
+        mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
+        mDestinationEditText.setText(mSearchedPhrase);
+        //start search on "done" key on keyboard
+        mDestinationEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                        || (actionId == EditorInfo.IME_ACTION_DONE)
+                        || (actionId == EditorInfo.IME_ACTION_NEXT)) {
+                    onClick(mImageButton);
+                }
+                return false;
+            }
+        });
 
         mFiltersSpinner = (Spinner) view.findViewById(R.id.s_filters);
         mFiltersSpinner.setAdapter(new ArrayAdapter<>(
