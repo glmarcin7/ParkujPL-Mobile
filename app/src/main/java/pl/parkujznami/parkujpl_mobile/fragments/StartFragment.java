@@ -46,7 +46,9 @@ import timber.log.Timber;
 public class StartFragment extends Fragment implements Button.OnClickListener {
 
     public static final String CITY_ID = "CITY_ID";
+    public static final String CITY_NAME = "CITY_NAME";
     public static final String SEARCHED_PHRASE = "SEARCHED_PHRASE";
+
     private Activity mActivity;
     private Spinner mCitiesChooser;
     private Button mNavigateButton;
@@ -207,10 +209,15 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
 
 
     private void startParkingListActivity() {
-        Integer cityId = ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId();
+        RespondedCity respondedCity = (RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city");
+        Integer cityId = respondedCity.getId();
+        String cityName = respondedCity.getName() + ", ";
+
         Intent intent = new Intent(mActivity, ParkingListActivity.class);
         intent.putExtra(StartFragment.CITY_ID, cityId);
-        intent.putExtra(StartFragment.SEARCHED_PHRASE, mDestinationEditText.getText().toString());
+        intent.putExtra(StartFragment.CITY_NAME, cityName);
+        intent.putExtra(StartFragment.SEARCHED_PHRASE, mDestinationEditText.getText().toString()
+        );
         startActivity(intent);
     }
 }

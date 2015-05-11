@@ -43,6 +43,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
     private Activity mActivity;
     private Integer mCityId;
+    private String mCityName;
     private String mSearchedPhrase;
     private EditText mDestinationEditText;
     private ImageButton mImageButton;
@@ -75,6 +76,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
         Intent intent = mActivity.getIntent();
         mCityId = intent.getIntExtra(StartFragment.CITY_ID, -1);
+        mCityName = intent.getStringExtra(StartFragment.CITY_NAME);
         mSearchedPhrase = intent.getStringExtra(StartFragment.SEARCHED_PHRASE);
 
         mImageButton = (ImageButton) view.findViewById(R.id.ib_look_for);
@@ -119,7 +121,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     private void search() {
         ApiClient.getParkujPlApiClient(mActivity).parking(
                 mCityId,
-                mDestinationEditText.getText().toString(),
+                mCityName + mDestinationEditText.getText().toString(),
                 1500.0,
                 0.0,
                 0.0,
