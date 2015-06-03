@@ -168,7 +168,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     }
 
     private void findParking(Double latitude, Double longitude) {
-        ApiClient.getParkujPlApiClient(mActivity).parking(
+        ApiClient.getParkujPlApiClient(mActivity).parkings(
                 ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId(),
                 latitude + "," + longitude,
                 1500.0,
@@ -187,7 +187,9 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                             Navigation.startNavigation(
                                     parking.getId(),
                                     parking.getCoords(),
-                                    mActivity);
+                                    mActivity,
+                                    !parking.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.s_really_little_space))
+                            );
                         } else {
                             Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
                         }
@@ -201,7 +203,12 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                         Coords coords = new Coords();
                         coords.setLatitude("52.40622836");
                         coords.setLongitude("16.92763567");
-                        Navigation.startNavigation(0, coords, mActivity);
+                        Navigation.startNavigation(
+                                0,
+                                coords,
+                                mActivity,
+                                false
+                        );
                     }
                 }
         );

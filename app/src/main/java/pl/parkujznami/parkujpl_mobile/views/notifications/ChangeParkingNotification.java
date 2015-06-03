@@ -13,20 +13,20 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import pl.parkujznami.parkujpl_mobile.R;
-import pl.parkujznami.parkujpl_mobile.activities.ChooseNumberOfFreeSpotsActivity;
+import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 
 /**
- * Helper class for showing and canceling choose number of places
+ * Helper class for showing and canceling change parking
  * notifications.
  * <p/>
  * This class makes heavy use of the {@link NotificationCompat.Builder} helper
  * class to create notifications in a backward-compatible way.
  */
-public class ChooseNumberOfFreeSpotsNotification {
+public class ChangeParkingNotification {
     /**
      * The unique identifier for this type of notification.
      */
-    public static final String NOTIFICATION_TAG = "ChooseNumberOfFreeSpots";
+    private static final String NOTIFICATION_TAG = "ChangeParking";
 
     /**
      * Shows the notification, or updates a previously shown notification of
@@ -36,7 +36,7 @@ public class ChooseNumberOfFreeSpotsNotification {
      * the notification.
      * <p/>
      * Customize the contents of this method to tweak the behavior and
-     * presentation of choose number of places notifications. Make
+     * presentation of change parking notifications. Make
      * sure to follow the
      * <a href="https://developer.android.com/design/patterns/notifications.html">
      * Notification design guidelines</a> when doing so.
@@ -44,21 +44,17 @@ public class ChooseNumberOfFreeSpotsNotification {
      * @see #cancel(Context)
      */
     public static void notify(final Context context,
-                              final String titleText, final int parkingId) {
+                              final String titleText) {
         final Resources res = context.getResources();
 
-        // This image is used as the notification's large icon (thumbnail).
+        // This image is used as the notification's large icon (thumbnail)
         final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.ic_p);
 
 
         final String ticker = titleText;
-        final String title = res.getString(
-                R.string.choose_number_of_free_spots_ticker, titleText);
-        final String text = res.getString(
-                R.string.choose_number_of_free_spots_main_text, titleText);
+        final String title = res.getString(R.string.number_of_free_spots_has_changed_ticker);
+        final String text = res.getString(R.string.number_of_free_spots_has_changed_main_text);;
 
-        final Intent intent = new Intent(context, ChooseNumberOfFreeSpotsActivity.class);
-        intent.putExtra(NOTIFICATION_TAG, parkingId);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
@@ -90,7 +86,7 @@ public class ChooseNumberOfFreeSpotsNotification {
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                intent,
+                                new Intent(context, StartActivity.class),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.
@@ -112,7 +108,7 @@ public class ChooseNumberOfFreeSpotsNotification {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify(Context, String, int)}.
+     * {@link #notify(Context, String)}.
      */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
     public static void cancel(final Context context) {

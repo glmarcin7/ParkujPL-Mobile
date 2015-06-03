@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/notification_main_text" />
+            android:text="@string/choose_number_of_free_spots_main_text" />
 
         <Space
             style="@style/FragmentChooseNumberOfFreeSpotsSpace"

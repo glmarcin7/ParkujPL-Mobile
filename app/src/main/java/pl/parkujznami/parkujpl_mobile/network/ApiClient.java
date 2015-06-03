@@ -6,6 +6,7 @@ import java.util.List;
 
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.models.city.RespondedCity;
+import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
 import pl.parkujznami.parkujpl_mobile.models.report.RequestForReport;
 import pl.parkujznami.parkujpl_mobile.models.report.ResponseWithReport;
@@ -48,7 +49,7 @@ public class ApiClient {
 
         @Headers("Content-Type: application/json")
         @GET("/api/v1/parkings/search")
-        void parking(
+        void parkings(
                 @Query("city_id") Integer cityId,
                 @Query("destination") String destination,
                 @Query("max_parking_time_max") Double maxParkingTimeMax,
@@ -59,6 +60,13 @@ public class ApiClient {
                 @Query("spots_min") Integer spotsMin,
                 @Query("spots_max") Integer spotsMax,
                 Callback<ResponseWithParking> callback
+        );
+
+        @Headers("Content-Type: application/json")
+        @GET("/api/v1/parkings/{id}")
+        void parking(
+                @Path("id") Integer parkingId,
+                Callback<Parking> callback
         );
 
         @Headers("Content-Type: application/json")

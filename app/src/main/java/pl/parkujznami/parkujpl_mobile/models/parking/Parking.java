@@ -1,5 +1,7 @@
 package pl.parkujznami.parkujpl_mobile.models.parking;
 
+import android.content.Context;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -217,11 +219,26 @@ public class Parking {
             Double p1AvailabilityFactor = p1.getAvailabilty().getNumberOfFreeSpotsFactor();
             Double p2AvailabilityFactor = p2.getAvailabilty().getNumberOfFreeSpotsFactor();
 
-            //ascending order
+            //descending order
             if (p2AvailabilityFactor >= p1AvailabilityFactor) {
                 return 1;
             }
             return -1;
         }
     };
+
+    public String toString(Context context) {
+        return "Parking{" +
+                "id=" + id +
+                ", cityId=" + cityId +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", spots=" + spots +
+                ", address='" + address + '\'' +
+                ", coords=" + coords +
+                ", maxParkingTime=" + maxParkingTime +
+                ", distance='" + distance + '\'' +
+                ", availabilty=" + availabilty.toString(context) +
+                '}';
+    }
 }

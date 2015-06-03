@@ -65,6 +65,7 @@ public class Availabilty {
     public String toString(Context context) {
         final Double numberOfFreeSpotsFactor = getNumberOfFreeSpotsFactor();
 
+        if (numberOfFreeSpotsFactor == 0) return context.getString(R.string.s_no_date);
         if (numberOfFreeSpotsFactor < 1.5) return context.getString(R.string.s_really_little_space);
         if (numberOfFreeSpotsFactor < 2.5) return context.getString(R.string.s_little_space);
         if (numberOfFreeSpotsFactor < 3.5)

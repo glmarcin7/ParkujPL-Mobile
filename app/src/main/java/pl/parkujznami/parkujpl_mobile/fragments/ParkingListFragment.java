@@ -35,6 +35,7 @@ import pl.parkujznami.parkujpl_mobile.views.adapters.ParkingAdapter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,7 +120,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     }
 
     private void search() {
-        ApiClient.getParkujPlApiClient(mActivity).parking(
+        ApiClient.getParkujPlApiClient(mActivity).parkings(
                 mCityId,
                 mCityName + mDestinationEditText.getText().toString(),
                 1500.0,
@@ -148,6 +149,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                     @Override
                     public void failure(RetrofitError error) {
                         //Toast.makeText(mActivity, mActivity.getString(R.string.findParkingFail), Toast.LENGTH_LONG).show();
+                        Timber.i(mActivity.getString(R.string.find_parking_fail));
 
                         //Tylko do testów
                         Parking parking1 = new Parking();
@@ -158,12 +160,13 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                         coords1.setLongitude("16.91310883");
                         parking1.setCoords(coords1);
                         Availabilty availabilty1 = new Availabilty();
-                        availabilty1.setHigh(1);
-                        availabilty1.setMedium(1);
+                        availabilty1.setHigh(0);
+                        availabilty1.setMedium(0);
                         availabilty1.setLow(1);
                         parking1.setAvailabilty(availabilty1);
                         parking1.setDistance("500m");
                         parking1.setPrice("5.0");
+                        parking1.setId(1);
 
                         Parking parking2 = new Parking();
                         parking2.setName("Plac Wolności");
@@ -173,12 +176,13 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                         coords2.setLongitude("16.91186428");
                         parking2.setCoords(coords2);
                         Availabilty availabilty2 = new Availabilty();
-                        availabilty2.setHigh(2);
-                        availabilty2.setMedium(1);
-                        availabilty2.setLow(0);
+                        availabilty2.setHigh(0);
+                        availabilty2.setMedium(0);
+                        availabilty2.setLow(1);
                         parking2.setAvailabilty(availabilty2);
                         parking2.setDistance("1200m");
                         parking2.setPrice("4.0");
+                        parking2.setId(2);
 
                         mParkings = new ArrayList<>();
                         mParkings.add(parking1);
@@ -211,7 +215,13 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         switch (parent.getId()) {
             case R.id.lv_list_of_parking:
                 Parking selectedItem = (Parking) parent.getItemAtPosition(position);
-                Navigation.startNavigation(selectedItem.getId(), selectedItem.getCoords(), mActivity);
+                Timber.d("SelectedItem name: " + selectedItem.toString(mActivity));
+                Navigation.startNavigation(
+                        selectedItem.getId(),
+                        selectedItem.getCoords(),
+                        mActivity,
+                        !selectedItem.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.s_really_little_space))
+                );
                 break;
         }
     }

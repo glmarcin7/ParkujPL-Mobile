@@ -10,16 +10,21 @@
     <string name="btn_navigate">Rozpocznij\nnawigację</string>
     <string name="getting_available_cities_failed">Pobieranie dostępnych miast nie powiodło się</string>
     <string name="find_parking_fail">Nie odnaleziono żadnego parkingu</string>
+    <string name="parking_not_found">Nie odnaleziono żądanego parkingu</string>
     <string name="tv_edit_text_explanation">W przypadku, gdy pole jest puste wyszukiwany jest najbliższy parking</string>
 
     <!-- StartFragment & ParkingListFragment -->
     <string name="et_destination_hint">Wybierz punkt docelowy</string>
 
     <!-- ChooseNumberOFPlacesNotification -->
-    <string name="notification_ticker">Podziel się liczbą dostępnych miejsc</string>
-    <string name="notification_main_text">Dzieląc się informacją na temat ilości dostępnych miejsc
+    <string name="choose_number_of_free_spots_ticker">Podziel się liczbą dostępnych miejsc</string>
+    <string name="choose_number_of_free_spots_main_text">Dzieląc się informacją na temat ilości dostępnych miejsc
         parkingowych pomagasz sobie i innym. Nie bądź obojętny!
     </string>
+
+    <!-- ChangeParkingNotofication -->
+    <string name="number_of_free_spots_has_changed_ticker">Zmiana ilości dostępnych miejsc</string>
+    <string name="number_of_free_spots_has_changed_main_text">Nastapiła zmiana ilości dostępnych miejsc. Kliknij by zmienić miejsce docelowe.</string>
 
     <!-- ChooseNumberOfFreeSpots -->
     <string name="btn_little_space">@string/s_little_space</string>
@@ -51,6 +56,7 @@
     <string name="s_distance_to_parking">Odległość od celu</string>
 
     <!-- Number of free spots -->
+    <string name="s_no_date">Brak danych</string>
     <string name="s_really_little_space">Bardzo mała liczba miejsc</string>
     <string name="s_little_space">Mała liczba miejsc</string>
     <string name="s_the_average_amount_of_space">Średnia liczba miejsc</string>

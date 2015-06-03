@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="api_url">https://parkujpl.herokuapp.com</string>
+    <!-- In km -->
+    <string name="distance_to_parking_when_notification_is_shown">0.05</string>
+    <!-- In min -->
+    <string name="update_freq">5</string>
 </resources>
