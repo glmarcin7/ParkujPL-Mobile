@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.provider.Settings;
 
 import pl.parkujznami.parkujpl_mobile.R;
+import pl.parkujznami.parkujpl_mobile.fragments.StartFragment;
 
 /**
  * Created by Marcin on 2015-04-22.
@@ -17,14 +18,16 @@ public class GPS {
 
     private static Activity mActivity;
 
-    public static void enableGPS(Activity activity) {
+    public static boolean enableGPS(Activity activity) {
         mActivity = activity;
 
         final LocationManager manager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
+            return false;
         }
+        return true;
     }
 
     private static void buildAlertMessageNoGps() {

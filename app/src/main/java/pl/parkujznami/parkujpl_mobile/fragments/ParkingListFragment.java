@@ -85,6 +85,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         mImageButton.setOnClickListener(this);
 
         mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
+        mDestinationEditText.getBackground().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         mDestinationEditText.setText(mSearchedPhrase);
         //start search on "done" key on keyboard
         mDestinationEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -101,7 +102,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         mFiltersSpinner = (Spinner) view.findViewById(R.id.s_filters);
         mFiltersSpinner.setAdapter(new ArrayAdapter<>(
                 mActivity,
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_dropdown_item,
                 getResources().getStringArray(R.array.sa_filters)
         ));
         mFiltersSpinner.setOnItemSelectedListener(this);

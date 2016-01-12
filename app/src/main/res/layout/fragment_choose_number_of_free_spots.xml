@@ -7,7 +7,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent_blue" />
+        android:background="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:text="@string/choose_number_of_free_spots_main_text" />
 
         <Space

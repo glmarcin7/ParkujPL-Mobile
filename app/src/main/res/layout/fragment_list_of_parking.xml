@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context="pl.parkujznami.parkujpl_mobile.fragments.ParkingListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent_blue"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
         android:orientation="vertical">
 
         <LinearLayout
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -31,7 +32,6 @@
                 android:hint="@string/et_destination_hint"
                 android:singleLine="true"
                 android:textColorHint="@android:color/white" />
-
 
             <ImageButton
                 android:id="@+id/ib_look_for"
@@ -49,17 +49,20 @@
             android:id="@+id/s_filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             android:popupBackground="@color/light_blue" />
 
-        <View style="@style/HorizontalLine" />
-
-        <ListView
-            android:id="@+id/lv_list_of_parking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp" />
-
     </LinearLayout>
-</RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_list_of_parking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp" />
+
+
+</LinearLayout>

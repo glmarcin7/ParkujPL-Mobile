@@ -3,9 +3,12 @@ package pl.parkujznami.parkujpl_mobile.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -68,8 +71,32 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_start, container, false);
         initialize(view);
-        findCities();
+        if(isInternet()) {
+            findCities();
+        } else {
+            Toast.makeText(mActivity, R.string.no_internet, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, R.string.no_internet, Toast.LENGTH_LONG).show();
+        }
         return view;
+    }
+
+    private boolean isInternet() {
+        //author: Squonk
+        //http://stackoverflow.com/questions/4238921/detect-whether-there-is-an-internet-connection-available-on-android
+        boolean isWifiConnected = false;
+        boolean isMobileConnected = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) mActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo ni : networkInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    isWifiConnected = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    isMobileConnected = true;
+        }
+        return isWifiConnected || isMobileConnected;
     }
 
     private void initialize(View view) {
@@ -149,23 +176,28 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                         && !mDestinationEditText.getText().toString().isEmpty()) {
                     startParkingListActivity();
                 } else {
-                    GPS.enableGPS(mActivity);
-                    SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
-                    smartLocation
-                            .location()
-                            .oneFix()
-                            .config(LocationParams.NAVIGATION)
-                            .start(new OnLocationUpdatedListener() {
-                                @Override
-                                public void onLocationUpdated(Location location) {
-                                    Timber.d("OneTimeLocationUpdate");
-                                    findParking(location.getLatitude(), location.getLongitude());
-                                    //findParking(52.39792823, 16.9029808);
-                                }
-                            });
+                    if (GPS.enableGPS(mActivity)){
+                        startLocating();
+                    }
                 }
                 break;
         }
+    }
+
+    private void startLocating(){
+        SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
+        smartLocation
+                .location()
+                .oneFix()
+                .config(LocationParams.NAVIGATION)
+                .start(new OnLocationUpdatedListener() {
+                    @Override
+                    public void onLocationUpdated(Location location) {
+                        Timber.d("OneTimeLocationUpdate");
+                        findParking(location.getLatitude(), location.getLongitude());
+                        //findParking(52.39792823, 16.9029808);
+                    }
+                });
     }
 
     private void findParking(Double latitude, Double longitude) {

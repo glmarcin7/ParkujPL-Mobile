@@ -62,5 +62,6 @@
     <string name="s_the_average_amount_of_space">Średnia liczba miejsc</string>
     <string name="s_a_lot_of_space">Duża liczba miejsc</string>
     <string name="s_really_a_lot_of_space">Bardzo duża liczba miejsc</string>
+    <string name="no_internet">Aplikacja potrzebuje do działania połączenia z internetem. Proszę włączyć wifi lub sieć komórkową i uruchomic ponownie aplikację</string>
 
 </resources>

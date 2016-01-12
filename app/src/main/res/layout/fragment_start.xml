@@ -25,8 +25,7 @@
             android:gravity="center_vertical"
             android:text="@string/start_activity_label"
             android:textColor="@android:color/white"
-            android:textSize="22dp"
-            android:textStyle="bold" />
+            android:textSize="22dp" />
 
         <Spinner
             android:id="@+id/s_city_chooser"
@@ -46,7 +45,7 @@
         android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="@dimen/fragment_start_main_button_position"
         android:background="@drawable/start_navigation_btn_selector"
         android:text="@string/btn_navigate"
         android:textSize="22sp"
@@ -61,7 +60,7 @@
         android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp" />
+        android:layout_marginTop="@dimen/fragment_start_main_button_position" />
 
     <LinearLayout
         android:layout_width="match_parent"
