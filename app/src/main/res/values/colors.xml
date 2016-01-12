@@ -2,4 +2,7 @@
 <resources>
     <item name="transparent_blue" type="color">#B22094F1</item>
     <item name="light_blue" type="color">#FF2094F1</item>
+    <color name="blue">#2196F3</color>
+    <color name="grey">#808080</color>
+    <color name="light_light_blue">#E3F2FD</color>
 </resources>

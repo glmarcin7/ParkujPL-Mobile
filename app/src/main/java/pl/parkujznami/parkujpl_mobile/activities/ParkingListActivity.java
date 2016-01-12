@@ -1,5 +1,6 @@
 package pl.parkujznami.parkujpl_mobile.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import pl.parkujznami.parkujpl_mobile.R;
@@ -17,5 +18,11 @@ public class ParkingListActivity extends BaseActivity {
                     .add(R.id.container, new ParkingListFragment())
                     .commit();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, StartActivity.class));
+        finish();
     }
 }

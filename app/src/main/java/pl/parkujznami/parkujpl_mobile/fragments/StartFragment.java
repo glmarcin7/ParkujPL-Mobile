@@ -4,6 +4,7 @@ package pl.parkujznami.parkujpl_mobile.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -76,7 +77,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
 
         // Initialize
         mCitiesChooser = (Spinner) view.findViewById(R.id.s_city_chooser);
-
+        mCitiesChooser.getBackground().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         mNavigateButton = (Button) view.findViewById(R.id.btn_navigate);
 
         mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);

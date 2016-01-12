@@ -4,6 +4,7 @@ package pl.parkujznami.parkujpl_mobile.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -104,6 +105,8 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                 getResources().getStringArray(R.array.sa_filters)
         ));
         mFiltersSpinner.setOnItemSelectedListener(this);
+        mFiltersSpinner.getBackground().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+
 
         mListView = (ListView) view.findViewById(R.id.lv_list_of_parking);
         mListView.setOnItemClickListener(this);

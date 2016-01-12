@@ -8,13 +8,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent_blue" />
+        android:background="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/blue">
 
         <TextView
             android:id="@+id/tv_destination"
@@ -45,7 +46,7 @@
         android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="125dp"
         android:background="@drawable/start_navigation_btn_selector"
         android:text="@string/btn_navigate"
         android:textSize="22sp"
@@ -60,7 +61,7 @@
         android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="115dp" />
+        android:layout_marginTop="125dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,11 +85,13 @@
             android:ellipsize="end"
             android:hint="@string/et_destination_hint"
             android:singleLine="true"
-            android:textColorHint="@android:color/white" />
+            android:textColorHint="@color/grey"
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/grey"
             android:text="@string/tv_edit_text_explanation" />
 
 
