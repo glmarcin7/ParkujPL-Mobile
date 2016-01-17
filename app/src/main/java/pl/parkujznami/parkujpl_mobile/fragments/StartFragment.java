@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,10 +34,13 @@ import io.nlopez.smartlocation.location.config.LocationParams;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.activities.ParkingListActivity;
 import pl.parkujznami.parkujpl_mobile.models.city.RespondedCity;
+import pl.parkujznami.parkujpl_mobile.models.parkandride.Datum;
+import pl.parkujznami.parkujpl_mobile.models.parkandride.WarsawParkAndRide;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
 import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 import pl.parkujznami.parkujpl_mobile.network.ApiClient;
+import pl.parkujznami.parkujpl_mobile.network.WarsawParkAndRideApi;
 import pl.parkujznami.parkujpl_mobile.utils.GPS;
 import pl.parkujznami.parkujpl_mobile.utils.Navigation;
 import retrofit.Callback;
@@ -71,7 +75,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_start, container, false);
         initialize(view);
-        if(isInternet()) {
+        if (isInternet()) {
             findCities();
         } else {
             Toast.makeText(mActivity, R.string.no_internet, Toast.LENGTH_LONG).show();
@@ -176,7 +180,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                         && !mDestinationEditText.getText().toString().isEmpty()) {
                     startParkingListActivity();
                 } else {
-                    if (GPS.enableGPS(mActivity)){
+                    if (GPS.enableGPS(mActivity)) {
                         startLocating();
                     }
                 }
@@ -184,7 +188,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         }
     }
 
-    private void startLocating(){
+    private void startLocating() {
         SmartLocation smartLocation = new SmartLocation.Builder(mActivity).logging(true).build();
         smartLocation
                 .location()
@@ -200,51 +204,97 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                 });
     }
 
-    private void findParking(Double latitude, Double longitude) {
-        ApiClient.getParkujPlApiClient(mActivity).parkings(
-                ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId(),
-                latitude + "," + longitude,
-                1500.0,
-                0.0,
-                0.0,
-                10.0,
-                50.0, //in km
-                0,
-                1500,
-                new Callback<ResponseWithParking>() {
-                    @Override
-                    public void success(ResponseWithParking responseWithParking, Response response) {
-                        List<Parking> parkings = responseWithParking.getParkings();
-                        if (parkings != null && !parkings.isEmpty()) {
-                            Parking parking = parkings.get(0);
-                            Navigation.startNavigation(
-                                    parking.getId(),
-                                    parking.getCoords(),
-                                    mActivity,
-                                    !parking.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.s_really_little_space))
-                            );
-                        } else {
-                            Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
+    private void findParking(final Double latitude, final Double longitude) {
+        String name = ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getName();
+        Timber.d("Name: " + name);
+        switch (name) {
+            case "Poznań":
+                ApiClient.getParkujPlApiClient(mActivity).parkings(
+                        ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId(),
+                        latitude + "," + longitude,
+                        1500.0,
+                        0.0,
+                        0.0,
+                        10.0,
+                        50.0, //in km
+                        0,
+                        1500,
+                        new Callback<ResponseWithParking>() {
+                            @Override
+                            public void success(ResponseWithParking responseWithParking, Response response) {
+                                List<Parking> parkings = responseWithParking.getParkings();
+                                if (parkings != null && !parkings.isEmpty()) {
+                                    Parking parking = parkings.get(0);
+                                    Navigation.startNavigation(
+                                            parking.getId(),
+                                            parking.getCoords(),
+                                            mActivity,
+                                            !parking.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.s_really_little_space))
+                                    );
+                                } else {
+                                    Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                //Toast.makeText(mActivity, mActivity.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
+
+                                //Tylko do testów
+                                Coords coords = new Coords();
+                                coords.setLatitude("52.40622836");
+                                coords.setLongitude("16.92763567");
+                                Navigation.startNavigation(
+                                        0,
+                                        coords,
+                                        mActivity,
+                                        false
+                                );
+                            }
                         }
-                    }
+                );
+                break;
+            case "Warszawa":
+                WarsawParkAndRideApi.getWarsawParkAndRideApiClient(mActivity).parkings(
+                        longitude + "," + latitude + "," + 10000,
+                        new Callback<WarsawParkAndRide>() {
+                            @Override
+                            public void success(WarsawParkAndRide warsawParkAndRide, Response response) {
+                                List<Datum> datumsList = warsawParkAndRide.getData();
+                                List<Parking> parkings = new ArrayList<>();
+                                for(Datum datum : datumsList){
+                                    Coords coords = datum.getGeometry().getCoordinates();
+                                    Parking parking = new Parking(
+                                            -1,
+                                            datum.getGeometry().getCoordinates(),
+                                            Navigation.distance(
+                                                    latitude,
+                                                    longitude,
+                                                    Double.parseDouble(coords.getLatitude()),
+                                                    Double.parseDouble(coords.getLongitude())
+                                            ).toString()
+                                    );
+                                    parkings.add(parking);
+                                }
+                                Collections.sort(parkings, Parking.distanceComparator);
+                                Parking parking = parkings.get(0);
+                                Navigation.startNavigation(
+                                        parking.getId(),
+                                        parking.getCoords(),
+                                        mActivity,
+                                        true
+                                );
+                            }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        //Toast.makeText(mActivity, mActivity.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
-
-                        //Tylko do testów
-                        Coords coords = new Coords();
-                        coords.setLatitude("52.40622836");
-                        coords.setLongitude("16.92763567");
-                        Navigation.startNavigation(
-                                0,
-                                coords,
-                                mActivity,
-                                false
-                        );
-                    }
-                }
-        );
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Toast.makeText(mActivity, R.string.find_parking_fail, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                );
+            default:
+                Toast.makeText(mActivity, "Tu nic nie powinno być", Toast.LENGTH_LONG).show();
+        }
     }
 
 

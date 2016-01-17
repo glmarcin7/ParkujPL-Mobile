@@ -33,6 +33,17 @@ public class Parking {
     private String distance;
     @Expose
     private Availabilty availabilty;
+    private String type;
+
+
+    public Parking() {
+    }
+
+    public Parking(Integer id, Coords coords, String distance) {
+        this.id = id;
+        this.coords = coords;
+        this.distance = distance;
+    }
 
     /**
      * @return The id
@@ -174,6 +185,15 @@ public class Parking {
         this.availabilty = availabilty;
     }
 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     /**
      * Comparator for sorting the list by costs
      */
@@ -239,6 +259,7 @@ public class Parking {
                 ", maxParkingTime=" + maxParkingTime +
                 ", distance='" + distance + '\'' +
                 ", availabilty=" + availabilty.toString(context) +
+                ", type='" + type +  '\'' +
                 '}';
     }
 }

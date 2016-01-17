@@ -37,6 +37,11 @@
             style="@style/ParkingItem"
             android:text="@string/tv_availability_des" />
 
+        <TextView
+            android:id="@+id/tv_type_des"
+            style="@style/ParkingItem"
+            android:text="@string/tv_type_des" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -69,6 +74,11 @@
             android:id="@+id/tv_availability"
             style="@style/ParkingItem"
             tools:text="Duża liczba miejsc" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            style="@style/ParkingItem"
+            tools:text="Park and ride" />
 
     </LinearLayout>
 

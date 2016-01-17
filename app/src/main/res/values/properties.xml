@@ -5,4 +5,7 @@
     <string name="distance_to_parking_when_notification_is_shown">0.05</string>
     <!-- In min -->
     <string name="update_freq">5</string>
+
+
+    <string name="warsaw_park_and_ride_api_url">https://api.bihapi.pl</string>
 </resources>

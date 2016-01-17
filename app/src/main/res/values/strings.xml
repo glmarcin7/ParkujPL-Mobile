@@ -39,6 +39,7 @@
     <string name="tv_distance_des">Odległośc:</string>
     <string name="tv_price_des">Cena:</string>
     <string name="tv_availability_des">Dostępność miejsc:</string>
+    <string name="tv_type_des">Typ</string>
 
     <!-- enable GPS-->
     <string name="enable_gps_title">By korzystac z nawigacji trzeba uruchomić GPS</string>
@@ -49,6 +50,7 @@
     <string name="enable_internet_title">By korzystac z nawigacji trzeba uruchomić internet</string>
     <string name="enable_internet">Włącz</string>
     <string name="cancel_internt">Anuluj</string>
+    <string name="no_internet">Aplikacja potrzebuje do działania połączenia z internetem. Proszę włączyć wifi lub sieć komórkową i uruchomic ponownie aplikację</string>
 
     <!-- Filters -->
     <string name="s_costs_of_parking">Koszt</string>
@@ -62,6 +64,7 @@
     <string name="s_the_average_amount_of_space">Średnia liczba miejsc</string>
     <string name="s_a_lot_of_space">Duża liczba miejsc</string>
     <string name="s_really_a_lot_of_space">Bardzo duża liczba miejsc</string>
-    <string name="no_internet">Aplikacja potrzebuje do działania połączenia z internetem. Proszę włączyć wifi lub sieć komórkową i uruchomic ponownie aplikację</string>
+    <string name="parking_type_other">Inne</string>
+    <string name="parking_type_park_and_ride">Park and ride</string>
 
 </resources>

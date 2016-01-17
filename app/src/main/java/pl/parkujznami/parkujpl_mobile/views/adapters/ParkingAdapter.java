@@ -46,6 +46,12 @@ public class ParkingAdapter extends ArrayAdapter {
         TextView availabilityTextView = ViewHolder.get(convertView, R.id.tv_availability);
         availabilityTextView.setText(parking.getAvailabilty().toString(context));
 
+        TextView typeTextView = ViewHolder.get(convertView, R.id.tv_type);
+        if(parking.getCityId() == 1) {
+            typeTextView.setText(R.string.parking_type_other);
+        } else {
+            typeTextView.setText(R.string.parking_type_park_and_ride);
+        }
         return convertView;
     }
 }
