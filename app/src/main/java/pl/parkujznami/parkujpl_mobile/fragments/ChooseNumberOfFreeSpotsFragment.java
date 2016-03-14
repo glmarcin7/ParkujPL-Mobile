@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 import pl.parkujznami.parkujpl_mobile.models.report.ReportInRequest;
@@ -25,9 +27,11 @@ import retrofit.client.Response;
 import timber.log.Timber;
 
 /**
- * Created by Marcin on 2015-04-19.
+ * A simple {@link Fragment} subclass that manages screen: ChooseNumberOfFreeSpots.
+ *
+ * @author Marcin Głowacki
  */
-public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.OnClickListener {
+public class ChooseNumberOfFreeSpotsFragment extends Fragment {
 
     public enum NumberOfFreeSpots {
         LITTLE_SPACE(1),
@@ -43,7 +47,9 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
 
     private Activity mActivity;
     private Integer mParkingId;
-    private List<View> mListOfButtons;
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,21 +61,17 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
     }
 
     private void initialize(View view) {
+        ButterKnife.bind(this, view);
+
         mActivity = getActivity();
 
         mParkingId = mActivity.getIntent().getIntExtra(ChooseNumberOfFreeSpotsNotification.NOTIFICATION_TAG, -1);
 
-        mListOfButtons = new ArrayList<>();
-        mListOfButtons.add(view.findViewById(R.id.btn_little_space));
-        mListOfButtons.add(view.findViewById(R.id.btn_the_average_amount_of_space));
-        mListOfButtons.add(view.findViewById(R.id.btn_a_lot_of_space));
+        ((AppCompatActivity) mActivity).setSupportActionBar(mToolbar);
 
-        for (View button : mListOfButtons) {
-            button.setOnClickListener(this);
-        }
     }
 
-    @Override
+    @OnClick({R.id.btn_little_space, R.id.btn_the_average_amount_of_space, R.id.btn_a_lot_of_space})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_little_space:
@@ -100,16 +102,22 @@ public class ChooseNumberOfFreeSpotsFragment extends Fragment implements View.On
                 new Callback<ResponseWithReport>() {
                     @Override
                     public void success(ResponseWithReport responseWithReport, Response response) {
-                        Toast.makeText(mActivity, mActivity.getString(R.string.thanks_for_sharing), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, mActivity.getString(R.string.choose_number_of_free_spots_screen_tv_thanks_for_sharing), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(mActivity, StartActivity.class));
                         mActivity.finish();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(mActivity, mActivity.getString(R.string.reporting_failed), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mActivity, mActivity.getString(R.string.choose_number_of_free_spots_screen_toast_error_report_fail), Toast.LENGTH_LONG).show();
                     }
                 }
         );
+    }
+
+    @Override
+    public void onDestroyView() {
+        ButterKnife.unbind(this);
+        super.onDestroyView();
     }
 }

@@ -65,12 +65,16 @@ public class Availabilty {
     public String toString(Context context) {
         final Double numberOfFreeSpotsFactor = getNumberOfFreeSpotsFactor();
 
-        if (numberOfFreeSpotsFactor == 0) return context.getString(R.string.s_no_date);
-        if (numberOfFreeSpotsFactor < 1.5) return context.getString(R.string.s_really_little_space);
-        if (numberOfFreeSpotsFactor < 2.5) return context.getString(R.string.s_little_space);
+        if (numberOfFreeSpotsFactor == 0)
+            return context.getString(R.string.parking_list_screen_item_value_tv_no_date);
+        if (numberOfFreeSpotsFactor < 1.5)
+            return context.getString(R.string.parking_list_screen_item_value_tv_really_little_space);
+        if (numberOfFreeSpotsFactor < 2.5)
+            return context.getString(R.string.parking_list_screen_item_value_tv_little_space);
         if (numberOfFreeSpotsFactor < 3.5)
-            return context.getString(R.string.s_the_average_amount_of_space);
-        if (numberOfFreeSpotsFactor < 4.5) return context.getString(R.string.s_a_lot_of_space);
-        return context.getString(R.string.s_really_a_lot_of_space);
+            return context.getString(R.string.parking_list_screen_item_value_tv_the_average_amount_of_space);
+        if (numberOfFreeSpotsFactor < 4.5)
+            return context.getString(R.string.parking_list_screen_item_value_tv_a_lot_of_space);
+        return context.getString(R.string.parking_list_screen_item_value_tv_really_a_lot_of_space);
     }
 }

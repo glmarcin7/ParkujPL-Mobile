@@ -24,23 +24,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 import io.nlopez.smartlocation.location.config.LocationParams;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.activities.ParkingListActivity;
 import pl.parkujznami.parkujpl_mobile.models.city.RespondedCity;
-import pl.parkujznami.parkujpl_mobile.models.parkandride.Datum;
-import pl.parkujznami.parkujpl_mobile.models.parkandride.WarsawParkAndRide;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
-import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 import pl.parkujznami.parkujpl_mobile.network.ApiClient;
-import pl.parkujznami.parkujpl_mobile.network.WarsawParkAndRideApi;
 import pl.parkujznami.parkujpl_mobile.utils.GPS;
 import pl.parkujznami.parkujpl_mobile.utils.Navigation;
 import retrofit.Callback;
@@ -49,25 +47,25 @@ import retrofit.client.Response;
 import timber.log.Timber;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that manages screen: Start.
+ *
+ * @author Marcin Głowacki
  */
-public class StartFragment extends Fragment implements Button.OnClickListener {
+public class StartFragment extends Fragment {
 
     public static final String CITY_ID = "CITY_ID";
     public static final String CITY_NAME = "CITY_NAME";
     public static final String SEARCHED_PHRASE = "SEARCHED_PHRASE";
 
     private Activity mActivity;
-    private Spinner mCitiesChooser;
-    private Button mNavigateButton;
-    private EditText mDestinationEditText;
-    private ProgressBar mLoadingProgressBar;
-
-
-    public StartFragment() {
-        // Required empty public constructor
-    }
-
+    @Bind(R.id.s_city_chooser)
+    Spinner mCitiesChooser;
+    @Bind(R.id.btn_navigate)
+    Button mNavigateButton;
+    @Bind(R.id.et_destination)
+    EditText mDestinationEditText;
+    @Bind(R.id.pb_loading)
+    ProgressBar mLoadingProgressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,8 +76,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         if (isInternet()) {
             findCities();
         } else {
-            Toast.makeText(mActivity, R.string.no_internet, Toast.LENGTH_LONG).show();
-            Toast.makeText(mActivity, R.string.no_internet, Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, R.string.enable_internet_toast_error_no_internet, Toast.LENGTH_LONG).show();
         }
         return view;
     }
@@ -104,16 +101,12 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     }
 
     private void initialize(View view) {
+        ButterKnife.bind(this, view);
+
         mActivity = getActivity();
 
-        // Initialize
-        mCitiesChooser = (Spinner) view.findViewById(R.id.s_city_chooser);
         mCitiesChooser.getBackground().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-        mNavigateButton = (Button) view.findViewById(R.id.btn_navigate);
-
-        mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
-
-        mLoadingProgressBar = (ProgressBar) view.findViewById(R.id.pb_loading);
+        mDestinationEditText.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void findCities() {
@@ -147,13 +140,12 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(mActivity, mActivity.getString(R.string.getting_available_cities_failed), Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity, mActivity.getString(R.string.start_screen_toast_error_get_cities_fail), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void activateButton() {
-        mNavigateButton.setOnClickListener(this);
         mNavigateButton.setVisibility(View.VISIBLE);
 
         //start search on "done" key on keyboard
@@ -162,7 +154,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                         || (actionId == EditorInfo.IME_ACTION_DONE)
                         || (actionId == EditorInfo.IME_ACTION_NEXT)) {
-                    onClick(mNavigateButton);
+                    onNavigateClick();
                 }
                 return false;
             }
@@ -171,20 +163,16 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         mLoadingProgressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_navigate:
-                if (mDestinationEditText != null
-                        && mDestinationEditText.getText() != null
-                        && !mDestinationEditText.getText().toString().isEmpty()) {
-                    startParkingListActivity();
-                } else {
-                    if (GPS.enableGPS(mActivity)) {
-                        startLocating();
-                    }
-                }
-                break;
+    @OnClick(R.id.btn_navigate)
+    public void onNavigateClick() {
+        if (mDestinationEditText != null
+                && mDestinationEditText.getText() != null
+                && !mDestinationEditText.getText().toString().isEmpty()) {
+            startParkingListActivity();
+        } else {
+            if (GPS.enableGPS(mActivity)) {
+                startLocating();
+            }
         }
     }
 
@@ -205,96 +193,40 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
     }
 
     private void findParking(final Double latitude, final Double longitude) {
-        String name = ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getName();
-        Timber.d("Name: " + name);
-        switch (name) {
-            case "Poznań":
-                ApiClient.getParkujPlApiClient(mActivity).parkings(
-                        ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId(),
-                        latitude + "," + longitude,
-                        1500.0,
-                        0.0,
-                        0.0,
-                        10.0,
-                        50.0, //in km
-                        0,
-                        1500,
-                        new Callback<ResponseWithParking>() {
-                            @Override
-                            public void success(ResponseWithParking responseWithParking, Response response) {
-                                List<Parking> parkings = responseWithParking.getParkings();
-                                if (parkings != null && !parkings.isEmpty()) {
-                                    Parking parking = parkings.get(0);
-                                    Navigation.startNavigation(
-                                            parking.getId(),
-                                            parking.getCoords(),
-                                            mActivity,
-                                            !parking.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.s_really_little_space))
-                                    );
-                                } else {
-                                    Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
-                                }
-                            }
 
-                            @Override
-                            public void failure(RetrofitError error) {
-                                //Toast.makeText(mActivity, mActivity.getString(R.string.findNearestParkingFail), Toast.LENGTH_LONG).show();
-
-                                //Tylko do testów
-                                Coords coords = new Coords();
-                                coords.setLatitude("52.40622836");
-                                coords.setLongitude("16.92763567");
-                                Navigation.startNavigation(
-                                        0,
-                                        coords,
-                                        mActivity,
-                                        false
-                                );
-                            }
+        ApiClient.getParkujPlApiClient(mActivity).parkings(
+                ((RespondedCity) ((HashMap<String, Object>) mCitiesChooser.getSelectedItem()).get("city")).getId(),
+                latitude + "," + longitude,
+                1500.0,
+                0.0,
+                0.0,
+                10.0,
+                50.0, //in km
+                0,
+                1500,
+                new Callback<ResponseWithParking>() {
+                    @Override
+                    public void success(ResponseWithParking responseWithParking, Response response) {
+                        List<Parking> parkings = responseWithParking.getParkings();
+                        if (parkings != null && !parkings.isEmpty()) {
+                            Parking parking = parkings.get(0);
+                            Navigation.startNavigation(
+                                    parking.getId(),
+                                    parking.getCoords(),
+                                    mActivity,
+                                    !parking.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.parking_list_screen_item_value_tv_really_little_space))
+                            );
+                        } else {
+                            Toast.makeText(mActivity, mActivity.getString(R.string.start_screen_toast_error_find_parking_fail), Toast.LENGTH_LONG).show();
                         }
-                );
-                break;
-            case "Warszawa":
-                WarsawParkAndRideApi.getWarsawParkAndRideApiClient(mActivity).parkings(
-                        longitude + "," + latitude + "," + 10000,
-                        new Callback<WarsawParkAndRide>() {
-                            @Override
-                            public void success(WarsawParkAndRide warsawParkAndRide, Response response) {
-                                List<Datum> datumsList = warsawParkAndRide.getData();
-                                List<Parking> parkings = new ArrayList<>();
-                                for (Datum datum : datumsList) {
-                                    Coords coords = datum.getGeometry().getCoordinates();
-                                    Parking parking = new Parking(
-                                            -1,
-                                            datum.getGeometry().getCoordinates(),
-                                            Navigation.distance(
-                                                    latitude,
-                                                    longitude,
-                                                    Double.parseDouble(coords.getLatitude()),
-                                                    Double.parseDouble(coords.getLongitude())
-                                            ).toString()
-                                    );
-                                    parkings.add(parking);
-                                }
-                                Collections.sort(parkings, Parking.distanceComparator);
-                                Parking parking = parkings.get(0);
-                                Navigation.startNavigation(
-                                        parking.getId(),
-                                        parking.getCoords(),
-                                        mActivity,
-                                        true
-                                );
-                            }
+                    }
 
-                            @Override
-                            public void failure(RetrofitError error) {
-                                Toast.makeText(mActivity, R.string.find_parking_fail, Toast.LENGTH_LONG).show();
-                            }
-                        }
-                );
-            default:
-                Toast.makeText(mActivity, "Tu nic nie powinno być", Toast.LENGTH_LONG).show();
-        }
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(mActivity, mActivity.getString(R.string.start_screen_toast_error_find_parking_fail), Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 
 
@@ -306,8 +238,13 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
         Intent intent = new Intent(mActivity, ParkingListActivity.class);
         intent.putExtra(StartFragment.CITY_ID, cityId);
         intent.putExtra(StartFragment.CITY_NAME, cityName);
-        intent.putExtra(StartFragment.SEARCHED_PHRASE, mDestinationEditText.getText().toString()
-        );
+        intent.putExtra(StartFragment.SEARCHED_PHRASE, mDestinationEditText.getText().toString());
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        ButterKnife.unbind(this);
+        super.onDestroyView();
     }
 }

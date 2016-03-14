@@ -1,6 +1,5 @@
 <resources>
 
-    <dimen name="fragment_start_space_between_buttons">20dp</dimen>
     <dimen name="fragment_start_main_button_position">135dp</dimen>
 
 </resources>

@@ -3,9 +3,9 @@
 
     <!-- Filters -->
     <string-array name="sa_filters">
-        <item>@string/s_costs_of_parking</item>
-        <item>@string/s_number_of_free_spots</item>
-        <item>@string/s_distance_to_parking</item>
+        <item>@string/parking_list_screen.s.costs_of_parking</item>
+        <item>@string/parking_list_screen.s.number_of_free_spots</item>
+        <item>@string/parking_list_screen.s.distance_to_parking</item>
     </string-array>
 
 </resources>

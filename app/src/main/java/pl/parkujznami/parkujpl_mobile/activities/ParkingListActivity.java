@@ -7,7 +7,9 @@ import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.fragments.ParkingListFragment;
 
 /**
- * Created by Marcin on 2015-03-22.
+ * Activity that manages ParkingListFragment
+ *
+ * @author Marcin Głowacki
  */
 public class ParkingListActivity extends BaseActivity {
     @Override
@@ -15,7 +17,7 @@ public class ParkingListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ParkingListFragment())
+                    .add(R.id.rl_container, new ParkingListFragment())
                     .commit();
         }
     }

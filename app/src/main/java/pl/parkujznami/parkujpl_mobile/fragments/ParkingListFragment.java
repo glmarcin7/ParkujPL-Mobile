@@ -14,22 +14,21 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pl.parkujznami.parkujpl_mobile.R;
-import pl.parkujznami.parkujpl_mobile.models.parking.Availabilty;
 import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.models.parking.ResponseWithParking;
-import pl.parkujznami.parkujpl_mobile.models.shared.Coords;
 import pl.parkujznami.parkujpl_mobile.network.ApiClient;
 import pl.parkujznami.parkujpl_mobile.utils.Navigation;
 import pl.parkujznami.parkujpl_mobile.views.adapters.ParkingAdapter;
@@ -39,23 +38,24 @@ import retrofit.client.Response;
 import timber.log.Timber;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass that manages screen: ParkingListFragment.
+ *
+ * @author Marcin Głowacki
  */
-public class ParkingListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class ParkingListFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private Activity mActivity;
     private Integer mCityId;
     private String mCityName;
     private String mSearchedPhrase;
-    private EditText mDestinationEditText;
-    private ImageButton mImageButton;
-    private ListView mListView;
-    private Spinner mFiltersSpinner;
     private List<Parking> mParkings;
 
-    public ParkingListFragment() {
-        // Required empty public constructor
-    }
+    @Bind(R.id.et_destination)
+    EditText mDestinationEditText;
+    @Bind(R.id.lv_list_of_parking)
+    ListView mListView;
+    @Bind(R.id.s_filters)
+    Spinner mFiltersSpinner;
 
 
     @Override
@@ -74,6 +74,8 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
     }
 
     private void initialize(View view) {
+        ButterKnife.bind(this, view);
+
         mActivity = getActivity();
 
         Intent intent = mActivity.getIntent();
@@ -81,10 +83,6 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         mCityName = intent.getStringExtra(StartFragment.CITY_NAME);
         mSearchedPhrase = intent.getStringExtra(StartFragment.SEARCHED_PHRASE);
 
-        mImageButton = (ImageButton) view.findViewById(R.id.ib_look_for);
-        mImageButton.setOnClickListener(this);
-
-        mDestinationEditText = (EditText) view.findViewById(R.id.et_destination);
         mDestinationEditText.getBackground().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         mDestinationEditText.setText(mSearchedPhrase);
         //start search on "done" key on keyboard
@@ -93,13 +91,12 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                         || (actionId == EditorInfo.IME_ACTION_DONE)
                         || (actionId == EditorInfo.IME_ACTION_NEXT)) {
-                    onClick(mImageButton);
+                    onLookForClick();
                 }
                 return false;
             }
         });
 
-        mFiltersSpinner = (Spinner) view.findViewById(R.id.s_filters);
         mFiltersSpinner.setAdapter(new ArrayAdapter<>(
                 mActivity,
                 R.layout.spinner_dropdown_item,
@@ -108,19 +105,13 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
         mFiltersSpinner.setOnItemSelectedListener(this);
         mFiltersSpinner.getBackground().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
 
-
-        mListView = (ListView) view.findViewById(R.id.lv_list_of_parking);
         mListView.setOnItemClickListener(this);
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ib_look_for:
-                search();
-                break;
-        }
+    @OnClick(R.id.ib_look_for)
+    public void onLookForClick() {
+        search();
     }
 
     private void search() {
@@ -146,57 +137,13 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                                     mParkings
                             ));
                         } else {
-                            Toast.makeText(mActivity, mActivity.getString(R.string.find_parking_fail), Toast.LENGTH_LONG).show();
+                            Toast.makeText(mActivity, mActivity.getString(R.string.start_screen_toast_error_find_parking_fail), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        //Toast.makeText(mActivity, mActivity.getString(R.string.findParkingFail), Toast.LENGTH_LONG).show();
-                        Timber.i(mActivity.getString(R.string.find_parking_fail));
-
-                        //Tylko do testów
-                        Parking parking1 = new Parking();
-                        parking1.setName("Dąbrowskiego 1");
-                        parking1.setAddress("Dąbrowskiego 1");
-                        Coords coords1 = new Coords();
-                        coords1.setLatitude("52.41063962");
-                        coords1.setLongitude("16.91310883");
-                        parking1.setCoords(coords1);
-                        Availabilty availabilty1 = new Availabilty();
-                        availabilty1.setHigh(0);
-                        availabilty1.setMedium(0);
-                        availabilty1.setLow(1);
-                        parking1.setAvailabilty(availabilty1);
-                        parking1.setDistance("500m");
-                        parking1.setPrice("5.0");
-                        parking1.setId(1);
-
-                        Parking parking2 = new Parking();
-                        parking2.setName("Plac Wolności");
-                        parking2.setAddress("Poznań, Plac Wolności 19");
-                        Coords coords2 = new Coords();
-                        coords2.setLatitude("52.41084904");
-                        coords2.setLongitude("16.91186428");
-                        parking2.setCoords(coords2);
-                        Availabilty availabilty2 = new Availabilty();
-                        availabilty2.setHigh(0);
-                        availabilty2.setMedium(0);
-                        availabilty2.setLow(1);
-                        parking2.setAvailabilty(availabilty2);
-                        parking2.setDistance("1200m");
-                        parking2.setPrice("4.0");
-                        parking2.setId(2);
-
-                        mParkings = new ArrayList<>();
-                        mParkings.add(parking1);
-                        mParkings.add(parking2);
-                        Collections.sort(mParkings, getFilter());
-                        mListView.setAdapter(new ParkingAdapter(
-                                mActivity,
-                                android.R.layout.simple_list_item_1,
-                                mParkings
-                        ));
+                        Toast.makeText(mActivity, mActivity.getString(R.string.start_screen_toast_error_find_parking_fail), Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -204,11 +151,11 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
     private Comparator<? super Parking> getFilter() {
         String selectedItem = (String) mFiltersSpinner.getSelectedItem();
-        if (selectedItem.equals(mActivity.getString(R.string.s_costs_of_parking))) {
+        if (selectedItem.equals(mActivity.getString(R.string.parking_list_screen_s_costs_of_parking))) {
             return Parking.costsComparator;
-        } else if (selectedItem.equals(mActivity.getString(R.string.s_number_of_free_spots))) {
+        } else if (selectedItem.equals(mActivity.getString(R.string.parking_list_screen_s_number_of_free_spots))) {
             return Parking.spotsAvailabilityComparator;
-        } else if (selectedItem.equals(mActivity.getString(R.string.s_distance_to_parking))) {
+        } else if (selectedItem.equals(mActivity.getString(R.string.parking_list_screen_s_distance_to_parking))) {
             return Parking.distanceComparator;
         }
         return null;
@@ -224,7 +171,7 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
                         selectedItem.getId(),
                         selectedItem.getCoords(),
                         mActivity,
-                        !selectedItem.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.s_really_little_space))
+                        !selectedItem.getAvailabilty().toString(mActivity).equals(mActivity.getString(R.string.parking_list_screen_item_value_tv_really_little_space))
                 );
                 break;
         }
@@ -248,6 +195,12 @@ public class ParkingListFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+        //Do nothing
+    }
 
+    @Override
+    public void onDestroyView() {
+        ButterKnife.unbind(this);
+        super.onDestroyView();
     }
 }

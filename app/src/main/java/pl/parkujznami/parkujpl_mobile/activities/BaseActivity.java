@@ -1,15 +1,18 @@
 package pl.parkujznami.parkujpl_mobile.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import pl.parkujznami.parkujpl_mobile.R;
 
 /**
- * Created by Marcin on 2015-03-22.
+ * Base class for all activities in project. Here is set basic content view for whole app
+ * and other things that should be apply for whole program
+ *
+ * @author Marcin Głowacki
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

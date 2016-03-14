@@ -5,7 +5,9 @@ import android.app.Application;
 import timber.log.Timber;
 
 /**
- * Created by Marcin on 2015-04-14.
+ * Class needed for initializing some libraries
+ *
+ * @author Marcin Głowacki
  */
 public class ParkujPL_Mobile extends Application {
     @Override

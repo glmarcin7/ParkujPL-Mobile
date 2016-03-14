@@ -5,7 +5,7 @@ import android.view.View;
 
 /**
  * Created by Marcin on 2015-04-14
- * <p/>
+ * <p>
  * Allows for convenient use of viewholder pattern.
  *
  * @see <a href="http://www.piwai.info/android-adapter-good-practices">piwai.info/android-adapter-good-practices</a>

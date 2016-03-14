@@ -33,6 +33,14 @@ public class Navigation {
     private static int mParkingId;
     private static Timer timer = null;
 
+    /**
+     * Starts navigation to parking
+     *
+     * @param parkingId                           - id of parking that is our destination
+     * @param coords                              - coordinates of destination parking
+     * @param context                             - application context
+     * @param informationAboutLittleSpaceNotKnown
+     */
     public static void startNavigation(Integer parkingId, Coords coords, Context context, Boolean informationAboutLittleSpaceNotKnown) {
         mContext = context;
         mParkingId = parkingId;
@@ -68,7 +76,7 @@ public class Navigation {
                 ApiClient.getParkujPlApiClient(mContext).parking(mParkingId, new Callback<Parking>() {
                     @Override
                     public void success(Parking parking, Response response) {
-                        if (parking.getAvailabilty().toString(mContext).equals(mContext.getString(R.string.s_really_little_space))) {
+                        if (parking.getAvailabilty().toString(mContext).equals(mContext.getString(R.string.parking_list_screen_item_value_tv_really_little_space))) {
                             showOnChangeNotification();
                             cancel();
                         }
@@ -76,7 +84,7 @@ public class Navigation {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(mContext, mContext.getString(R.string.parking_not_found), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.start_screen_toast_error_find_requested_parking_fail), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -87,7 +95,7 @@ public class Navigation {
         Timber.i("Number of free spots has changed");
         ChangeParkingNotification.notify(
                 mContext,
-                mContext.getString(R.string.number_of_free_spots_has_changed_ticker)
+                mContext.getString(R.string.notification_number_of_free_spots_has_changed_message_title)
         );
     }
 
@@ -123,12 +131,14 @@ public class Navigation {
         Timber.i("OnPosition");
         ChooseNumberOfFreeSpotsNotification.notify(
                 mContext,
-                mContext.getString(R.string.choose_number_of_free_spots_ticker),
+                mContext.getString(R.string.notification_choose_number_of_free_spots_message_title),
                 mParkingId
         );
     }
 
     /**
+     * Check if current position is in parking range
+     *
      * @param myLocation       - my location
      * @param parkingsLocation - parking's location
      * @param accuracy         - in km
@@ -149,10 +159,10 @@ public class Navigation {
     /**
      * Calculate distance between two points
      *
-     * @param lat1
-     * @param lon1
-     * @param lat2
-     * @param lon2
+     * @param lat1 - src latitude
+     * @param lon1 - src longitude
+     * @param lat2 - dest latitude
+     * @param lon2 - dest longitude
      * @return distance in km
      */
     public static Double distance(double lat1, double lon1, double lat2, double lon2) {

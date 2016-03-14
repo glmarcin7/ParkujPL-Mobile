@@ -5,7 +5,11 @@ import android.os.Bundle;
 import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.fragments.StartFragment;
 
-
+/**
+ * Activity that manages ParkingListFragment
+ *
+ * @author Marcin Głowacki
+ */
 public class StartActivity extends BaseActivity {
 
     private static StartActivity startActivityRunningInstance;
@@ -22,7 +26,7 @@ public class StartActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new StartFragment())
+                    .add(R.id.rl_container, new StartFragment())
                     .commit();
         }
     }

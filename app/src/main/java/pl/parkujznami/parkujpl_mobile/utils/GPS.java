@@ -17,6 +17,12 @@ public class GPS {
 
     private static Activity mActivity;
 
+    /**
+     * Check gps status and show AlertBox if necessary
+     *
+     * @param activity - application context
+     * @return true - gps is enabled, false - gps was disabled
+     */
     public static boolean enableGPS(Activity activity) {
         mActivity = activity;
 
@@ -31,14 +37,14 @@ public class GPS {
 
     private static void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        builder.setMessage(mActivity.getString(R.string.enable_gps_title))
+        builder.setMessage(mActivity.getString(R.string.enable_gps_dialog_message_text))
                 .setCancelable(false)
-                .setPositiveButton(mActivity.getString(R.string.enable_gps), new DialogInterface.OnClickListener() {
+                .setPositiveButton(mActivity.getString(R.string.enable_gps_dialog_btn_positive), new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         mActivity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setNegativeButton(mActivity.getString(R.string.cancel_gps), new DialogInterface.OnClickListener() {
+                .setNegativeButton(mActivity.getString(R.string.enable_gps_dialog_btn_negative), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         dialog.cancel();
                     }

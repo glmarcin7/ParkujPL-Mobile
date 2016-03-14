@@ -18,23 +18,25 @@ import pl.parkujznami.parkujpl_mobile.activities.ChooseNumberOfFreeSpotsActivity
 /**
  * Helper class for showing and canceling choose number of places
  * notifications.
- * <p/>
+ * <p>
  * This class makes heavy use of the {@link NotificationCompat.Builder} helper
  * class to create notifications in a backward-compatible way.
+ *
+ * @author Marcin Głowacki
  */
 public class ChooseNumberOfFreeSpotsNotification {
     /**
      * The unique identifier for this type of notification.
      */
-    public static final String NOTIFICATION_TAG = "ChooseNumberOfFreeSpots";
+    public static final String NOTIFICATION_TAG = "CHOOSE_NUMBER_OF_FREE_SPOTS";
 
     /**
      * Shows the notification, or updates a previously shown notification of
      * this type, with the given parameters.
-     * <p/>
+     * <p>
      * Customize this method's arguments to present relevant content in
      * the notification.
-     * <p/>
+     * <p>
      * Customize the contents of this method to tweak the behavior and
      * presentation of choose number of places notifications. Make
      * sure to follow the
@@ -53,9 +55,9 @@ public class ChooseNumberOfFreeSpotsNotification {
 
         final String ticker = titleText;
         final String title = res.getString(
-                R.string.choose_number_of_free_spots_ticker, titleText);
+                R.string.notification_choose_number_of_free_spots_message_title, titleText);
         final String text = res.getString(
-                R.string.choose_number_of_free_spots_main_text, titleText);
+                R.string.notification_choose_number_of_free_spots_message_text, titleText);
 
         final Intent intent = new Intent(context, ChooseNumberOfFreeSpotsActivity.class);
         intent.putExtra(NOTIFICATION_TAG, parkingId);

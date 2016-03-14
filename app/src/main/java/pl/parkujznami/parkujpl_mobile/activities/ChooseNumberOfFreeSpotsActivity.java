@@ -6,7 +6,9 @@ import pl.parkujznami.parkujpl_mobile.R;
 import pl.parkujznami.parkujpl_mobile.fragments.ChooseNumberOfFreeSpotsFragment;
 
 /**
- * Created by Marcin on 2015-04-19.
+ * Activity that manages ChooseNumberOfFreeSpotsFragment
+ *
+ * @author Marcin Głowacki
  */
 public class ChooseNumberOfFreeSpotsActivity extends BaseActivity {
 
@@ -15,7 +17,7 @@ public class ChooseNumberOfFreeSpotsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ChooseNumberOfFreeSpotsFragment())
+                    .add(R.id.rl_container, new ChooseNumberOfFreeSpotsFragment())
                     .commit();
         }
     }

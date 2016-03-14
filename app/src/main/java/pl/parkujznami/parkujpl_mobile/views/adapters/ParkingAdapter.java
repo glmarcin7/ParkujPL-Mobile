@@ -14,7 +14,10 @@ import pl.parkujznami.parkujpl_mobile.models.parking.Parking;
 import pl.parkujznami.parkujpl_mobile.utils.ViewHolder;
 
 /**
- * Created by Marcin on 2015-04-18.
+ * ArrayAdapter that translates list of Parking into list view
+ * with list_view_with_parkings_item as items
+ *
+ * @author Marcin Głowacki
  */
 public class ParkingAdapter extends ArrayAdapter {
     public ParkingAdapter(Context context, int resource, List<Parking> objects) {
@@ -48,9 +51,9 @@ public class ParkingAdapter extends ArrayAdapter {
 
         TextView typeTextView = ViewHolder.get(convertView, R.id.tv_type);
         if (parking.getCityId() == 1) {
-            typeTextView.setText(R.string.parking_type_other);
+            typeTextView.setText(R.string.parking_list_screen_item_value_tv_parking_type_other);
         } else {
-            typeTextView.setText(R.string.parking_type_park_and_ride);
+            typeTextView.setText(R.string.parking_list_screen_item_value_tv_parking_type_park_and_ride);
         }
         return convertView;
     }

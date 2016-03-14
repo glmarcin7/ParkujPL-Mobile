@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
     android:background="@android:color/transparent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="10dp"
+    tools:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,70 +15,70 @@
 
         <TextView
             android:id="@+id/tv_parkings_name_des"
-            style="@style/ParkingItem"
-            android:text="@string/tv_parkings_name_des" />
+            style="@style/ItemParkingTextView"
+            android:text="@string/parking_list_screen.item.description.tv.parkings_name" />
 
         <TextView
             android:id="@+id/tv_parkings_addres_des"
-            style="@style/ParkingItem"
-            android:text="@string/tv_parkings_addres_des" />
+            style="@style/ItemParkingTextView"
+            android:text="@string/parking_list_screen.item.description.tv.parkings_addres" />
 
         <TextView
             android:id="@+id/tv_distance_des"
-            style="@style/ParkingItem"
-            android:text="@string/tv_distance_des" />
+            style="@style/ItemParkingTextView"
+            android:text="@string/parking_list_screen.item.description.tv.distance" />
 
         <TextView
             android:id="@+id/tv_price_des"
-            style="@style/ParkingItem"
-            android:text="@string/tv_price_des" />
+            style="@style/ItemParkingTextView"
+            android:text="@string/parking_list_screen.item.description.tv.price" />
 
         <TextView
             android:id="@+id/tv_availability_des"
-            style="@style/ParkingItem"
-            android:text="@string/tv_availability_des" />
+            style="@style/ItemParkingTextView"
+            android:text="@string/parking_list_screen.item.description.tv.availability" />
 
         <TextView
             android:id="@+id/tv_type_des"
-            style="@style/ParkingItem"
-            android:text="@string/tv_type_des" />
+            style="@style/ItemParkingTextView"
+            android:text="@string/parking_list_screen.item.description.tv.type" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_parkings_name"
-            style="@style/ParkingItem"
+            style="@style/ItemParkingTextView"
             tools:text="Plac Wolności" />
 
         <TextView
             android:id="@+id/tv_parkings_addres"
-            style="@style/ParkingItem"
+            style="@style/ItemParkingTextView"
             tools:text="Poznań, Plac Wolności 19" />
 
         <TextView
             android:id="@+id/tv_distance"
-            style="@style/ParkingItem"
+            style="@style/ItemParkingTextView"
             tools:text="1000m" />
 
         <TextView
             android:id="@+id/tv_price"
-            style="@style/ParkingItem"
+            style="@style/ItemParkingTextView"
             tools:text="5zł" />
 
         <TextView
             android:id="@+id/tv_availability"
-            style="@style/ParkingItem"
+            style="@style/ItemParkingTextView"
             tools:text="Duża liczba miejsc" />
 
         <TextView
             android:id="@+id/tv_type"
-            style="@style/ParkingItem"
+            style="@style/ItemParkingTextView"
             tools:text="Park and ride" />
 
     </LinearLayout>

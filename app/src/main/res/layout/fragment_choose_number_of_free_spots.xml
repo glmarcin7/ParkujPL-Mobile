@@ -4,60 +4,38 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_information"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="40dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" >
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/notification.choose_number_of_free_spots.message.text"
+        android:textColor="@android:color/black" />
 
-        <Space
-            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
-            android:layout_height="40dp" />
+    <Button
+        android:id="@+id/btn_little_space"
+        style="@style/ChooseNumberOfFreeSpotsButton"
+        android:layout_below="@id/tv_information"
+        android:text="@string/choose_number_of_free_spots_screen.btn.little_space" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:text="@string/choose_number_of_free_spots_main_text" />
+    <Button
+        android:id="@+id/btn_the_average_amount_of_space"
+        style="@style/ChooseNumberOfFreeSpotsButton"
+        android:layout_below="@id/btn_little_space"
+        android:text="@string/choose_number_of_free_spots_screen.btn.the_average_amount_of_space" />
 
-        <Space
-            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
-            android:layout_height="40dp" />
-
-        <Button
-            android:id="@+id/btn_little_space"
-            style="@style/ChooseNumberOfFreeSpotsButton"
-            android:text="@string/btn_little_space" />
-
-        <Space
-            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
-            android:layout_height="20dp" />
-
-        <Button
-            android:id="@+id/btn_the_average_amount_of_space"
-            style="@style/ChooseNumberOfFreeSpotsButton"
-            android:text="@string/btn_the_average_amount_of_space" />
-
-        <Space
-            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
-            android:layout_height="20dp" />
-
-        <Button
-            android:id="@+id/btn_a_lot_of_space"
-            style="@style/ChooseNumberOfFreeSpotsButton"
-            android:text="@string/btn_a_lot_of_space" />
-
-        <Space
-            style="@style/FragmentChooseNumberOfFreeSpotsSpace"
-            android:layout_height="20dp" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_a_lot_of_space"
+        style="@style/ChooseNumberOfFreeSpotsButton"
+        android:layout_below="@id/btn_the_average_amount_of_space"
+        android:text="@string/choose_number_of_free_spots_screen.btn.a_lot_of_space" />
 
 </RelativeLayout>

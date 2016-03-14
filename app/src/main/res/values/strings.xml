@@ -1,70 +1,74 @@
 <resources>
-    <string name="app_name">ParkujPL</string>
 
-    <!-- Activities - Labels -->
-    <string name="start_activity_label">@string/app_name</string>
-    <string name="parking_list_activity_label">Lista parkingów</string>
-    <string name="choose_number_of_parking_activity_label">Liczba dostępnych miejsc</string>
+    <!-- Manifest -->
+    <string name="manifest.label.app_name">ParkujPL</string>
+    <string name="manifest.label.start_activity">ParkujPL</string>
+    <string name="manifest.label.parking_list_activity">Lista parkingów</string>
+    <string name="manifest.label.choose_number_of_parking_activity">Liczba dostępnych miejsc</string>
 
-    <!-- StartFragment -->
-    <string name="btn_navigate">Rozpocznij\nnawigację</string>
-    <string name="getting_available_cities_failed">Pobieranie dostępnych miast nie powiodło się</string>
-    <string name="find_parking_fail">Nie odnaleziono żadnego parkingu</string>
-    <string name="parking_not_found">Nie odnaleziono żądanego parkingu</string>
-    <string name="tv_edit_text_explanation">W przypadku, gdy pole jest puste wyszukiwany jest najbliższy parking</string>
+    <!-- Start screen -->
+    <string name="start_screen.tv.title">ParkujPL</string>
+    <string name="start_screen.btn.start_navigation">Rozpocznij\nnawigowanie</string>
+    <string name="start_screen.et.hint.destination">Wybierz punkt docelowy</string>
+    <string name="start_screen.tv.edit_text_explanation">W przypadku, gdy pole jest puste wyszukiwany jest najbliższy parking</string>
 
-    <!-- StartFragment & ParkingListFragment -->
-    <string name="et_destination_hint">Wybierz punkt docelowy</string>
+    <string name="start_screen.toast.error.get_cities_fail">Pobieranie dostępnych miast nie powiodło się</string>
+    <string name="start_screen.toast.error.find_parking_fail">Nie odnaleziono żadnego parkingu</string>
+    <string name="start_screen.toast.error.find_requested_parking_fail">Nie odnaleziono żądanego parkingu</string>
 
-    <!-- ChooseNumberOFPlacesNotification -->
-    <string name="choose_number_of_free_spots_ticker">Podziel się liczbą dostępnych miejsc</string>
-    <string name="choose_number_of_free_spots_main_text">Dzieląc się informacją na temat ilości dostępnych miejsc
+    <!-- Parking list screen -->
+    <string name="parking_list_screen.et.hint.destination">Wybierz punkt docelowy</string>
+
+    <!-- Filters -->
+    <string name="parking_list_screen.s.costs_of_parking">Koszt</string>
+    <string name="parking_list_screen.s.number_of_free_spots">Liczba wolnych miejsc</string>
+    <string name="parking_list_screen.s.distance_to_parking">Odległość od celu</string>
+
+    <!-- Parking list item -->
+    <string name="parking_list_screen.item.description.tv.parkings_name">Nazwa:</string>
+    <string name="parking_list_screen.item.description.tv.parkings_addres">Adres:</string>
+    <string name="parking_list_screen.item.description.tv.distance">Odległośc:</string>
+    <string name="parking_list_screen.item.description.tv.price">Cena:</string>
+    <string name="parking_list_screen.item.description.tv.availability">Dostępność miejsc:</string>
+    <string name="parking_list_screen.item.description.tv.type">Typ</string>
+
+    <string name="parking_list_screen.item.value.tv.no_date">Brak danych</string>
+    <string name="parking_list_screen.item.value.tv.really_little_space">Bardzo mała liczba miejsc</string>
+    <string name="parking_list_screen.item.value.tv.little_space">Mała liczba miejsc</string>
+    <string name="parking_list_screen.item.value.tv.the_average_amount_of_space">Średnia liczba miejsc</string>
+    <string name="parking_list_screen.item.value.tv.a_lot_of_space">Duża liczba miejsc</string>
+    <string name="parking_list_screen.item.value.tv.really_a_lot_of_space">Bardzo duża liczba miejsc</string>
+    <string name="parking_list_screen.item.value.tv.parking_type_other">Inne</string>
+    <string name="parking_list_screen.item.value.tv.parking_type_park_and_ride">Park and ride</string>
+
+    <!-- Choose number of places - notification -->
+    <string name="notification.choose_number_of_free_spots.message.title">Podziel się liczbą dostępnych miejsc</string>
+    <string name="notification.choose_number_of_free_spots.message.text">Dzieląc się informacją na temat ilości dostępnych miejsc
         parkingowych pomagasz sobie i innym. Nie bądź obojętny!
     </string>
 
-    <!-- ChangeParkingNotofication -->
-    <string name="number_of_free_spots_has_changed_ticker">Zmiana ilości dostępnych miejsc</string>
-    <string name="number_of_free_spots_has_changed_main_text">Nastapiła zmiana ilości dostępnych miejsc. Kliknij by zmienić miejsce docelowe.</string>
+    <!-- Change parking - notification -->
+    <string name="notification.number_of_free_spots_has_changed.message.title">Zmiana ilości dostępnych miejsc</string>
+    <string name="notification.number_of_free_spots_has_changed.message.text">Nastapiła zmiana ilości dostępnych miejsc. Kliknij by zmienić miejsce docelowe.</string>
 
-    <!-- ChooseNumberOfFreeSpots -->
-    <string name="btn_little_space">@string/s_little_space</string>
-    <string name="btn_the_average_amount_of_space">@string/s_the_average_amount_of_space</string>
-    <string name="btn_a_lot_of_space">@string/s_a_lot_of_space</string>
-    <string name="thanks_for_sharing">Dziękujemy za informację</string>
-    <string name="reporting_failed">Nie udało się przekazać informacji</string>
+    <!-- Choose number of free spots screen -->
+    <string name="choose_number_of_free_spots_screen.btn.little_space">@string/parking_list_screen.item.value.tv.little_space</string>
+    <string name="choose_number_of_free_spots_screen.btn.the_average_amount_of_space">@string/parking_list_screen.item.value.tv.the_average_amount_of_space</string>
+    <string name="choose_number_of_free_spots_screen.btn.a_lot_of_space">@string/parking_list_screen.item.value.tv.a_lot_of_space</string>
+    <string name="choose_number_of_free_spots_screen.tv.thanks_for_sharing">Dziękujemy za informację</string>
+    <string name="choose_number_of_free_spots_screen.toast.error.report_fail">Nie udało się przekazać informacji</string>
 
-    <!-- list_view_with_parkings_item -->
-    <string name="tv_parkings_name_des">Nazwa:</string>
-    <string name="tv_parkings_addres_des">Adres:</string>
-    <string name="tv_distance_des">Odległośc:</string>
-    <string name="tv_price_des">Cena:</string>
-    <string name="tv_availability_des">Dostępność miejsc:</string>
-    <string name="tv_type_des">Typ</string>
+    <!-- enable GPS -->
+    <string name="enable_gps.dialog.message.text">By korzystac z nawigacji trzeba uruchomić GPS</string>
+    <string name="enable_gps.dialog.btn.positive">Włącz</string>
+    <string name="enable_gps.dialog.btn.negative">Anuluj</string>
 
-    <!-- enable GPS-->
-    <string name="enable_gps_title">By korzystac z nawigacji trzeba uruchomić GPS</string>
-    <string name="enable_gps">Włącz</string>
-    <string name="cancel_gps">Anuluj</string>
+    <!-- enable Internet -->
+    <string name="enable_internet.dialog.message.text">By korzystac z nawigacji trzeba uruchomić internet</string>
+    <string name="enable_internet.dialog.btn.positive">Włącz</string>
+    <string name="eneble_internet.dialog.btn.negative">Anuluj</string>
+    <string name="enable_internet.toast.error.no_internet">Aplikacja potrzebuje do działania połączenia z internetem.
+        Proszę włączyć wifi lub sieć komórkową i uruchomic ponownie aplikację</string>
 
-    <!--enable Internet -->
-    <string name="enable_internet_title">By korzystac z nawigacji trzeba uruchomić internet</string>
-    <string name="enable_internet">Włącz</string>
-    <string name="cancel_internt">Anuluj</string>
-    <string name="no_internet">Aplikacja potrzebuje do działania połączenia z internetem. Proszę włączyć wifi lub sieć komórkową i uruchomic ponownie aplikację</string>
-
-    <!-- Filters -->
-    <string name="s_costs_of_parking">Koszt</string>
-    <string name="s_number_of_free_spots">Liczba wolnych miejsc</string>
-    <string name="s_distance_to_parking">Odległość od celu</string>
-
-    <!-- Number of free spots -->
-    <string name="s_no_date">Brak danych</string>
-    <string name="s_really_little_space">Bardzo mała liczba miejsc</string>
-    <string name="s_little_space">Mała liczba miejsc</string>
-    <string name="s_the_average_amount_of_space">Średnia liczba miejsc</string>
-    <string name="s_a_lot_of_space">Duża liczba miejsc</string>
-    <string name="s_really_a_lot_of_space">Bardzo duża liczba miejsc</string>
-    <string name="parking_type_other">Inne</string>
-    <string name="parking_type_park_and_ride">Park and ride</string>
 
 </resources>

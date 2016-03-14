@@ -18,23 +18,25 @@ import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 /**
  * Helper class for showing and canceling change parking
  * notifications.
- * <p/>
+ * <p>
  * This class makes heavy use of the {@link NotificationCompat.Builder} helper
  * class to create notifications in a backward-compatible way.
+ *
+ * @author Marcin Głowacki
  */
 public class ChangeParkingNotification {
     /**
      * The unique identifier for this type of notification.
      */
-    private static final String NOTIFICATION_TAG = "ChangeParking";
+    private static final String NOTIFICATION_TAG = "CHANGE_PARKING";
 
     /**
      * Shows the notification, or updates a previously shown notification of
      * this type, with the given parameters.
-     * <p/>
+     * <p>
      * Customize this method's arguments to present relevant content in
      * the notification.
-     * <p/>
+     * <p>
      * Customize the contents of this method to tweak the behavior and
      * presentation of change parking notifications. Make
      * sure to follow the
@@ -52,8 +54,8 @@ public class ChangeParkingNotification {
 
 
         final String ticker = titleText;
-        final String title = res.getString(R.string.number_of_free_spots_has_changed_ticker);
-        final String text = res.getString(R.string.number_of_free_spots_has_changed_main_text);
+        final String title = res.getString(R.string.notification_number_of_free_spots_has_changed_message_title);
+        final String text = res.getString(R.string.notification_number_of_free_spots_has_changed_message_text);
         ;
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)

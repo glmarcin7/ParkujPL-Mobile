@@ -20,7 +20,9 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
- * Created by Marcin on 2015-04-11.
+ * ApiClient
+ *
+ * @author Marcin Głowacki
  */
 public class ApiClient {
 
