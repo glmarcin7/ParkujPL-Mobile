@@ -16,36 +16,28 @@ public class Datum {
     private List<Property> properties = new ArrayList<Property>();
 
     /**
-     *
-     * @return
-     * The geometry
+     * @return The geometry
      */
     public Geometry getGeometry() {
         return geometry;
     }
 
     /**
-     *
-     * @param geometry
-     * The geometry
+     * @param geometry The geometry
      */
     public void setGeometry(Geometry geometry) {
         this.geometry = geometry;
     }
 
     /**
-     *
-     * @return
-     * The properties
+     * @return The properties
      */
     public List<Property> getProperties() {
         return properties;
     }
 
     /**
-     *
-     * @param properties
-     * The properties
+     * @param properties The properties
      */
     public void setProperties(List<Property> properties) {
         this.properties = properties;

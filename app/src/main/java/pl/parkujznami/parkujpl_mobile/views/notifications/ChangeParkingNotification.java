@@ -53,7 +53,8 @@ public class ChangeParkingNotification {
 
         final String ticker = titleText;
         final String title = res.getString(R.string.number_of_free_spots_has_changed_ticker);
-        final String text = res.getString(R.string.number_of_free_spots_has_changed_main_text);;
+        final String text = res.getString(R.string.number_of_free_spots_has_changed_main_text);
+        ;
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 

@@ -262,7 +262,7 @@ public class StartFragment extends Fragment implements Button.OnClickListener {
                             public void success(WarsawParkAndRide warsawParkAndRide, Response response) {
                                 List<Datum> datumsList = warsawParkAndRide.getData();
                                 List<Parking> parkings = new ArrayList<>();
-                                for(Datum datum : datumsList){
+                                for (Datum datum : datumsList) {
                                     Coords coords = datum.getGeometry().getCoordinates();
                                     Parking parking = new Parking(
                                             -1,

@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.provider.Settings;
 
 import pl.parkujznami.parkujpl_mobile.R;
-import pl.parkujznami.parkujpl_mobile.fragments.StartFragment;
 
 /**
  * Created by Marcin on 2015-04-22.

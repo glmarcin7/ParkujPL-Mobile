@@ -1,5 +1,3 @@
-
-
 package pl.parkujznami.parkujpl_mobile.models.parkandride;
 
 import com.google.gson.annotations.Expose;
@@ -15,18 +13,14 @@ public class WarsawParkAndRide {
     private List<Datum> data = new ArrayList<Datum>();
 
     /**
-     *
-     * @return
-     * The data
+     * @return The data
      */
     public List<Datum> getData() {
         return data;
     }
 
     /**
-     *
-     * @param data
-     * The data
+     * @param data The data
      */
     public void setData(List<Datum> data) {
         this.data = data;

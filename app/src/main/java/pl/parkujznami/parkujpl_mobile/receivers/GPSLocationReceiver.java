@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.widget.Toast;
 
 import pl.parkujznami.parkujpl_mobile.activities.StartActivity;
 
@@ -16,8 +15,7 @@ public class GPSLocationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.location.PROVIDERS_CHANGED"))
-        {
+        if (intent.getAction().equals("android.location.PROVIDERS_CHANGED")) {
             LocationManager locationManager = (LocationManager) StartActivity.getInstace().getSystemService(Context.LOCATION_SERVICE);
 
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {

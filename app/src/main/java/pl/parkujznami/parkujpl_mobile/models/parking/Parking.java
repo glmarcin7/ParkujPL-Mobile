@@ -259,7 +259,7 @@ public class Parking {
                 ", maxParkingTime=" + maxParkingTime +
                 ", distance='" + distance + '\'' +
                 ", availabilty=" + availabilty.toString(context) +
-                ", type='" + type +  '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

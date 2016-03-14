@@ -1,4 +1,3 @@
-
 package pl.parkujznami.parkujpl_mobile.models.parkandride;
 
 import com.google.gson.annotations.Expose;
@@ -16,36 +15,28 @@ public class Geometry {
     private Coords coordinates;
 
     /**
-     * 
-     * @return
-     *     The type
+     * @return The type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * 
-     * @param type
-     *     The type
+     * @param type The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
     /**
-     * 
-     * @return
-     *     The coordinates
+     * @return The coordinates
      */
     public Coords getCoordinates() {
         return coordinates;
     }
 
     /**
-     * 
-     * @param coordinates
-     *     The coordinates
+     * @param coordinates The coordinates
      */
     public void setCoordinates(Coords coordinates) {
         this.coordinates = coordinates;

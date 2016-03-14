@@ -2,16 +2,12 @@ package pl.parkujznami.parkujpl_mobile.network;
 
 import android.content.Context;
 
-import java.util.List;
-
 import pl.parkujznami.parkujpl_mobile.R;
-import pl.parkujznami.parkujpl_mobile.models.city.RespondedCity;
 import pl.parkujznami.parkujpl_mobile.models.parkandride.WarsawParkAndRide;
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
-import retrofit.http.Headers;
 import retrofit.http.Query;
 
 /**

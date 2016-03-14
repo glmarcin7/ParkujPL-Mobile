@@ -10,7 +10,7 @@ public class StartActivity extends BaseActivity {
 
     private static StartActivity startActivityRunningInstance;
 
-    public static StartActivity  getInstace(){
+    public static StartActivity getInstace() {
         return startActivityRunningInstance;
     }
 

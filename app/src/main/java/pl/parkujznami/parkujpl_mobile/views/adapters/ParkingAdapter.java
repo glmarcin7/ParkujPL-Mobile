@@ -47,7 +47,7 @@ public class ParkingAdapter extends ArrayAdapter {
         availabilityTextView.setText(parking.getAvailabilty().toString(context));
 
         TextView typeTextView = ViewHolder.get(convertView, R.id.tv_type);
-        if(parking.getCityId() == 1) {
+        if (parking.getCityId() == 1) {
             typeTextView.setText(R.string.parking_type_other);
         } else {
             typeTextView.setText(R.string.parking_type_park_and_ride);
